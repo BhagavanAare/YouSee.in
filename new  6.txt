@@ -1,0 +1,60 @@
+
+$period = $row['PERIOD'];
+
+<form action="#" class="cmxform">
+<fieldset>
+<legend>Featured Project</legend>
+<ol>
+	<li><table border="0">
+	<tr><td rowspan="2"><img height="150px" width="150px" src="<? echo $img; ?>"/></td><td><b>Project Title: </b><? echo $title; ?></td></tr>
+        <tr><td><b>Duration: From </b><? echo $prostartdate; ?><b> To </b> <? echo $procompdate; ?></td></tr>
+        </table></li>
+
+        <li><label for="name"><b>Project partner: </b> <? echo $partner; ?></label></li>
+	<li><label for="name"><b>Project Tags: </b><? echo $areatags; ?> | <b>Location: </b> <? echo $location; ?></label></li>
+
+	<li><table border="0">
+        <tr><td rowspan="3"><b>Funding status:</b>(in INR)</td><td><b>PostPaid</b><br><? echo $ppostpaid; ?></td><td align="right"><b>Available</b><br><? echo $pavailable; ?></td><td rowspan="3" align="center"><b>Total Value: </b><br><? echo $ptotal_cost; ?></td><td rowspan="3" align="right"><b>See Results</b><br><a href="<? echo $doclink; ?>" target=\"_blank\"><img src="images/doctype_pdf.gif" /></td></tr>
+        <tr><td colspan="2"><? echo "<img style=\"vertical-align:middle;\" border=\"0\" src=\"http://chart.apis.google.com/chart?chs=150x15&cht=bhs&chbh=a&chco=00FF00,FF0000&chd=t:$postpaid|$total_cost&chds=0,$total_cost\">"; ?></td></tr>
+        <tr><td><? echo $postpaid_pct; ?>%</td><td align="right"><? echo $available_pct; ?>%</td></tr>
+        </table></li>
+
+</ol>	
+</fieldset>
+</form>
+
+	<div>
+	<div id="left"><?php include 'featured_uc_project.php';?></div>
+	<div id="right"><?php include 'featured_uc_project.php';?></div>
+	</div>
+
+    <div>
+	<div id="left"><h4>Four Donations Received - Reports<h4>
+        <?php include 'featured_graphs_volunteer.php';?><br>
+        <?php include 'kind_and_waste_donations_graph.php';?>
+        <?php include 'featured_graphs.php';?>
+    </div>
+	<div id="right"><h4>Four Donations Received - Reports<h4>
+        <?php include 'featured_graphs_volunteer.php';?><br>
+        <?php include 'kind_and_waste_donations_graph.php';?>
+        <?php include 'featured_graphs.php';?>
+    </div>
+	</div>
+	
+	
+	<tr>
+		<td><b>Period:</b><?php echo $prostartdate; ?> to </b><?php echo $procompdate; ?></td>
+		<td colspan="2">
+			<!--graph section of the table-->
+			<table id="graph_table"><tr>
+			<td id="left_td" width="<?php echo $postpaid_pct; ?>%"></td>
+			<td id="right_td" width="<?php echo $available_pct; ?>%"></td>
+			</tr></table>
+		</td>
+	</tr>
+	<tr>
+		<td><b>Total Funding(INR): </b><?php echo $ptotal_cost; ?></td>	
+		<td><?php echo $postpaid_pct; ?>%</td>
+		<td><?php echo $available_pct; ?>%</td>
+		
+	</tr>	

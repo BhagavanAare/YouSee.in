@@ -1,0 +1,3 @@
+"INSERT INTO activity(activity_code,activity) VALUES ('".mysql_real_escape_string(stripslashes($_REQUEST['activity_id']))."','".mysql_real_escape_string(stripslashes($_REQUEST['activity_brief']))."')";
+
+INSERT INTO activity(activity_code,activity) VALUES ('a','aCTIVITY1')

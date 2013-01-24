@@ -1,0 +1,2 @@
+Jquery tabs
+http://www.developnew.com/resources/how-to-create-tab-with-javascript.php

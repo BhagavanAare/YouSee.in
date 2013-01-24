@@ -1,0 +1,3 @@
+<table border="1"><tr><td>$postpaid_pct %</td><td align="right">$available_pct %</td></tr><tr><td colspan="2"><img style=\"vertical-align:middle;\" border=\"0\" src=\"http://chart.apis.google.com/chart?chs=150x15&cht=bhs&chbh=a&chco=00FF00,FF0000&chd=t:$postpaid|$total_cost&chds=0,$total_cost\"></td></tr><tr><td>$postpaid</td><td align="right">$available</td></tr></table>
+
+$postpaid ($postpaid_pct %)<img style=\"vertical-align:middle;\" border=\"0\" src=\"http://chart.apis.google.com/chart?chs=150x15&cht=bhs&chbh=a&chco=00FF00,FF0000&chd=t:$postpaid|$total_cost&chds=0,$total_cost\">$available ($available_pct %)
