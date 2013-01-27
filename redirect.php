@@ -1,7 +1,9 @@
 <?php
 			//echo "dfksdkfjksdfsdfsdf";
-	if(!isset($_POST['formname']))
+	echo $_POST['formname'];
+	//if(!isset($_POST['formname']))
 	{
+		
 		echo "dfksdkfjksdfsdfsdf";
 		$formname=$_POST['formname'];
 		echo $formname;
@@ -16,7 +18,7 @@
 			$host  = $_SERVER['HTTP_HOST'];
 			$uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 			$extra = 'adminHomescreen.php';
-			header("Location: http://$host$uri/$extra");
+			header("Location: http://localhost/$host$uri/$extra");
 			echo "dfksdkfjksdfsdfsdf";
 			exit;
 		}
