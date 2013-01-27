@@ -23,7 +23,7 @@ echo "<a href=\"logout.php\">Logout</a>";
 
 <!--navbar-->
 <?php 
-if(!isset($_SESSION['SESS_USER_ID'])){
+if(!isset($_SESSION['SESS_USER_ID']) || $_SESSION['SESS_USER_TYPE']=="A"){
 include 'navbar.php';
 }
 else{
