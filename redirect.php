@@ -1,8 +1,8 @@
 <?php
-			echo "dfksdkfjksdfsdfsdf";
+			//echo "dfksdkfjksdfsdfsdf";
 	if(!isset($_POST['formname']))
 	{
-
+		echo "dfksdkfjksdfsdfsdf";
 		$formname=$_POST['formname'];
 		echo $formname;
 		if($formname="donorApproveRegistration" || $formname="ngoApproveRegistration")

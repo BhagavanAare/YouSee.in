@@ -50,7 +50,6 @@
 			}
 			else
 			{
-			{
 				document.getElementById(content).style.display="none";
 				document.getElementById(tab).className=tabNormal;
 			}

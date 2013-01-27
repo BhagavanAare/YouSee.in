@@ -17,15 +17,15 @@
 var group="adminTabs";
 createGroup(group);
 registerTab(group,"regApprovalsTab","regApprovalsDiv");
-registerTab(group,"regApprovalsTab","regApprovalsDiv1");
+registerTab(group,"regApprovalsTab1","regApprovalsDiv1");
 
 </script>
 
 
 
 <title>Homescreen - YouSee</title>
-</head>
 
+</head>
 <body>
 <?php include("header_navbar.php"); ?>
 
@@ -50,15 +50,30 @@ registerTab(group,"regApprovalsTab","regApprovalsDiv1");
 <div id="tab" class="tab"   >
 <ul  class="tabContainer" >  
 <div id="tabs" class="tab-box">
-    <a onClick="showTab('adminTabs','regApprovalsTab')" class="tabLink" id="regApprovalsTab">Registration Approvals</a>
-    <a onClick="showTab('adminTabs','regApprovalsTab1')" class="tabLink" id="regApprovalsTab1">Registration</a>
+    <a onclick="showTab('adminTabs','regApprovalsTab')" class="tabLink" id="regApprovalsTab">Registration Approvals</a>
+    <a onclick="showTab('adminTabs','regApprovalsTab1')" class="tabLink" id="regApprovalsTab1">Registration</a>
 </div>
 </ul>
 </div>
 
-<div style="display:block;" id="regApprovalsDiv"><?php include('admin/registrationApprovalForm.php'); ?></div>
-<div style="display:block;" id="regApprovalsDiv1">kdjfhskdfkdsjgkhjdkfngkjdhfjgdj</div>
+<div style="display:none;" id="regApprovalsDiv"><?php include('admin/registrationApprovalForm.php'); ?></div>
+<div style="display:none;" id="regApprovalsDiv1">kdjfhskdfkdsjgkhjdkfngkjdhfjgdj</div>
+<?php
 
+
+	if(!isset($_SESSION['formname']))
+	{
+		if(!isset($_POST['ngoApprovalRegistration']))
+		{
+			echo "<script> showTab('adminTabs','regApprovalsTab')</script>";
+		}
+	}
+	else
+	{
+		echo "<script> showTab('adminTabs','regApprovalsTab1')</script>";
+	}
+
+?>
 
 
 <!--footer-->
