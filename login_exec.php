@@ -65,9 +65,10 @@
 			session_regenerate_id();
 			$user = mysql_fetch_assoc($result);
 			$_SESSION['SESS_USER_ID'] = $user['user_id'];
-                        $_SESSION['SESS_DONOR_ID'] = $user['donor_id'];
+			$_SESSION['SESS_USER_TYPE'] = $user['user_type_id'];
+            $_SESSION['SESS_DONOR_ID'] = $user['donor_id'];
 			session_write_close();
-			header("location: myuc.php");
+			header("location: adminHomescreen.php");
 			exit();
 		}else {
 			//Login failed

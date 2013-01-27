@@ -4,10 +4,57 @@
 <!doctype html>
 <html lang="en">
 	<head>
+    
+    <style type="text/css">
+
+span.link {
+    	position: relative;
+}
+
+    span.link a span {
+    	display: none;
+}
+
+span.link a:hover {
+    	font-size: 99%;
+    	font-color: #000000;
+}
+
+span.link a:hover span { 
+    display: block; 
+    	position: absolute; 
+    	margin-top: 10px; 
+    	margin-left: -10px; 
+	    width: 175px; padding: 5px; 
+    	z-index: 100; 
+    	color: #000000; 
+    	background: #f0f0f0; 
+    	font: 12px "Arial", sans-serif;
+    	text-align: left; 
+    	text-decoration: none;
+}
+</style>
+
+
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
     <link rel="stylesheet" type="text/css" href="test/test.css">
-	<script type="text/javascript">
+    <link rel="stylesheet" type="text/css" href="css/forms.css">
+	<link rel="stylesheet" href="scripts/jquery-ui.css">
+	<script src="scripts/jquery-1.8.3.js"></script>
+	<script src="scripts/jquery.ui.core.js"></script>
+	<script src="scripts/jquery.ui.widget.js"></script>
+	<script src="scripts/datepicker.js"></script>
+ 	<script type="text/javascript">
+		$(function() {
+		$( "#dob" ).datepicker();
+		$( "#dobngo" ).datepicker();
+	});
+	</script>
+    <script src="scripts/tabscripts.js"></script>
+    <script src="scripts/gen_validatorv4.js" type="text/javascript"></script>
+    
+    <script type="text/javascript">
 		function showDonorReg()
 		{
 			//alert("d");
@@ -24,21 +71,15 @@
 				document.getElementById("NGO").style.display="block";
 		}	
 	</script>
-	<link rel="stylesheet" type="text/css" href="css/jquery.ui.all.css">
-	<script src="scripts/jquery-1.8.3.js"></script>
-	<script src="scripts/jquery.ui.core.js"></script>
-	<script src="scripts/jquery.ui.widget.js"></script>
-	<script src="scripts/jquery.ui.tabs.js"></script>
-	<link rel="stylesheet" type="text/css" href="css/demos.css">
-	<script>
-	$(function() {
-		$( "#tabs" ).tabs();
-	});
-	</script>
 	</head>
-	<body>
+	<body style="background:#FFF;">
+<div id="wrapper">
+
+
+
+
     <?php include("header_navbar.php"); ?>
-<div>
+
 
     <table >
     <tr>
@@ -54,26 +95,38 @@
             <input type="hidden" name="formName" value="donorReg" />
 
 <!-- *****************************************   tabs ******************** -->
-<div id="tab">
-<ul id="tablist">  
-<li><a href="registration.php">Personal Info</a></li>
-<li><a href="registration.php">Contact Info</a></li>
-<li><a href="registration.php">Organisation Info</a></li>
-<li><a href="registration.php">For UC</a></li>
-</ul> 
+<script language="javascript" >
+var group="donorReg";
+createGroup(group);
+registerTab(group,"donortab1","donorDiv1");
+registerTab(group,"donortab2","donorDiv2");
+registerTab(group,"donortab3","donorDiv3");
+registerTab(group,"donortab4","donorDiv4");
+var groupngo="ngoReg";
+createGroup(groupngo);
+registerTab(groupngo,"ngotab1","ngoDiv1");
+registerTab(groupngo,"ngotab2","ngoDiv2");
+
+</script>
+
+<div id="tab" class="tab"   >
+<ul  class="tabContainer" >  
+<div id="tabs" class="tab-box">
+    <a onClick="showTab('donorReg','donortab1')" class="tabLink activeLink" id="donortab1">Personal Info</a>
+    <a onClick="showTab('donorReg','donortab2')" class="tabLink" id="donortab2">Contact Info</a>
+    <a onClick="showTab('donorReg','donortab3')" class="tabLink" id="donortab3">Organisation/Group Info</a>
+    <a onClick="showTab('donorReg','donortab4')" class="tabLink" id="donortab4"> for UC</a>
 </div>
+</ul>
+</div>
+<div style="display:block;" id="donorDiv1"><?php include("donorRegForms/tab_personalInfo.php"); ?></div>
+<div style="display:none;" id="donorDiv2"><?php include("donorRegForms/tab_contactInfo.php"); ?></div>
+<div style="display:none;" id="donorDiv3"><?php include("donorRegForms/tab_orgInfo.php"); ?></div>
+<div style="display:none;" id="donorDiv4"><?php include("donorRegForms/tab_forUC.php"); ?></div>
 					
-					<?php include("donorRegForms/tab_personalInfo.php"); ?>
-                    
-
-
-					<?php include("donorRegForms/tab_contactInfo.php"); ?>
-
-
-					<?php include("donorRegForms/tab_orgInfo.php"); ?>
-					<?php include("donorRegForms/tab_forUC.php"); ?>
-                    </fieldset>
-                <input id="register" style="visibility:visible" name="submit" type="submit" value="Register" />
+					
+                 
+                <input id="register" style="visibility:visible" name="donorSubmit" type="submit" value="Register" />
 			</form>
             <br />
                			<br />
@@ -82,13 +135,25 @@
         <div id="NGO" style="display:none">
 			<form name="NGO" action="processRegistrations.php" method="post">
                         <input type="hidden" name="formName" value="NGOReg" />
-              <?php
-			  		//echo "lsdklfjd";
+                        
+                        <!-- *****************************************   tabs ******************** -->
+
+<div id="tab" class="tab"   >
+<ul  class="tabContainer" >  
+<div id="tabs" class="tab-box">
+    <a onClick="showTab('ngoReg','ngotab1')" class="tabLink activeLink" id="ngotab1">Organisation Info</a>
+    <a onClick="showTab('ngoReg','ngotab2')" class="tabLink" id="ngotab2">Contact Person Info</a>
+
+</div>
+</ul>
+</div>
+<div style="display:block;" id="ngoDiv1"><?php include("NGORegForms/tab_partnerInfo.php"); ?></div>
+<div style="display:none;" id="ngoDiv2"><?php include("NGORegForms/tab_partnerContactInfo.php"); ?></div>
+
 					
-					include("NGORegForms/tab_partnerInfo.php");
-					include("NGORegForms/tab_partnerContactInfo.php");
-                ?>
-                <input id="register" style="visibility:visible" type="submit" name="submit" value="Register" />
+
+
+                <input id="register" style="visibility:visible" type="submit" name="ngoSubmit" value="Register" />
 			</form>
             </div>
         
@@ -97,4 +162,8 @@
     </form>
         <?php include("footer.php"); ?>
 </body>
+
+
+
+	
 </html>
