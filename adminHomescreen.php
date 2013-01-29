@@ -1,6 +1,6 @@
-<?php //require_once('login_auth.php');?>
+<?php require_once('login_auth.php');?>
 <?php $thispage ="adminHomescreen"; 
-	session_start();
+	//session_start();
 ?>
 
 
@@ -56,23 +56,29 @@ registerTab(group,"regApprovalsTab1","regApprovalsDiv1");
 </ul>
 </div>
 
-<div style="display:none;" id="regApprovalsDiv"><?php include('admin/registrationApprovalForm.php'); ?></div>
+<div style="display:block;" id="regApprovalsDiv"><?php include('admin/registrationApprovalForm.php'); ?></div>
 <div style="display:none;" id="regApprovalsDiv1">kdjfhskdfkdsjgkhjdkfngkjdhfjgdj</div>
 <?php
 
-
-	if(!isset($_SESSION['formname']))
+/*Restore Active tab after reloading the page*/
+	if(isset($_SESSION['activeTab']))
 	{
-		if(!isset($_POST['ngoApprovalRegistration']))
+		//echo "neeeeeeeeeeeeeeeeeeeeee";
+		if($_SESSION['activeTab']=="regApprovalsTab")
 		{
 			echo "<script> showTab('adminTabs','regApprovalsTab')</script>";
 		}
+		else
+		{
+			echo "<script> showTab('adminTabs','regApprovalsTab1')</script>";
+		}
+		
 	}
 	else
-	{
-		echo "<script> showTab('adminTabs','regApprovalsTab1')</script>";
-	}
-
+		{
+			echo "<script> showTab('adminTabs','regApprovalsTab1')</script>";
+		}
+	
 ?>
 
 

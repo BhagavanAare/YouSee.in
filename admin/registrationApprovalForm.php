@@ -26,7 +26,7 @@ include("tableObjects/ngoTable.php");
  <!--******************************** TABS *******************************-->
 
 <script language="javascript" >
-var group="approval";
+var group="regApproval";
 createGroup(group);
 registerTab(group,"donor","donorDiv");
 registerTab(group,"ngo","ngoDiv");
@@ -36,8 +36,8 @@ registerTab(group,"ngo","ngoDiv");
 <div align="center" id="tab" class="tab"   >
 <ul  class="tabContainer" >  
 <div id="tabs" class="tab-box">
-    <a onClick="showTab('approval','donor');" class="tabLink activeLink" id="donor">Donors</a>
-    <a onClick="showTab('approval','ngo')" class="tabLink" id="ngo">NGOs</a>
+    <a onClick="showTab('regApproval','donor');" class="tabLink activeLink" id="donor">Donors</a>
+    <a onClick="showTab('regApproval','ngo')" class="tabLink" id="ngo">NGOs</a>
 
 </div>
 </ul>
@@ -282,7 +282,7 @@ if (isset($_POST['donorApprovalRegistration']) || isset($_POST['ngoApprovalRegis
 	 }
 	 $approveCount;
 	 /*echo "<script>alert('$donor');</script>";*/
-	 echo "<script>window.location.href='registrationApprovalForm.php'</script>";
+	 //echo "<script>window.location.href='registrationApprovalForm.php'</script>";
 
 }
 
@@ -358,7 +358,27 @@ function setPassword($userID) {
 
 
 ?>
+<?php
 
+
+	if(isset($_POST['formname']))
+	{
+		echo("neeeeeeeeeee");
+		
+		echo $_POST['formname'];
+		echo "<script> alert('fasjd');</script>";
+		if($_POST['formname']=='donorApproveRegistration')
+		{
+			echo "<script> showTab('regApproval','donor')</script>";
+		}
+		else 
+		{
+			echo "<script> showTab('regApproval','ngo')</script>";
+		}
+	}
+	
+
+?>
 
 
 </body>

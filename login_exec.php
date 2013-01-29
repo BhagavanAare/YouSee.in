@@ -2,6 +2,7 @@
 	//Start session
 	session_start();
 	
+	
 	//Include database connection details
 	require_once('prod_conn.php');
 	
@@ -57,7 +58,7 @@
 	//Create query
 	$qry="SELECT * FROM users WHERE username='$username' AND password='$password'";
 	$result=mysql_query($qry);
-
+	echo "<script>alert('$qry');</script>";
 	//Check whether the query was successful or not
 	if($result) {
 		if(mysql_num_rows($result) == 1) {
@@ -66,7 +67,6 @@
 			$user = mysql_fetch_assoc($result);
 			$_SESSION['SESS_USER_ID'] = $user['user_id'];
 			$_SESSION['SESS_USER_TYPE'] = $user['user_type_id'];
-            $_SESSION['SESS_DONOR_ID'] = $user['donor_id'];
 			session_write_close();
 			header("location: adminHomescreen.php");
 			exit();
