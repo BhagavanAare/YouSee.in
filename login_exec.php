@@ -115,7 +115,6 @@ function setRequiredInfo()
 				$_SESSION['SESS_DISPLAYNAME'] = $ngo['displayname'];
 				session_write_close();
 			}
-			
 		}
 	}
 	if ($_SESSION['SESS_USER_TYPE'] = "A")

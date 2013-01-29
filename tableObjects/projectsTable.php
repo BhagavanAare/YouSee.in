@@ -1,12 +1,12 @@
 <?php
 $projects;
 
-$projects['id']="project_id";
-$projects['title']="project_title";
-$projects['desc']="project_description";
-$projects['location']="location";
-$projects['latitude']="latitude";
-$projects['longitude']="longitude";
-$projects['area']="project_area";
-$projects['status']="project_status";
+$project['id']="project_id";
+$project['title']="project_title";
+$project['desc']="project_description";
+$project['location']="location";
+$project['latitude']="latitude";
+$project['longitude']="longitude";
+$project['area']="project_area";
+$project['status']="project_status";
 ?>

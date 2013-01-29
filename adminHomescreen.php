@@ -27,7 +27,13 @@ registerTab(group,"volunteeringApprovalsTab","volunteeringApprovalsDiv");
 
 </head>
 <body>
-<?php include("header_navbar.php"); ?>
+<?php include("header_navbar.php"); 
+if (!$_SESSION['SESS_USER_TYPE']=="A")
+{
+	header(header("Location: login_failed"));
+}
+?>
+
 
 <div id="tab" class="tab"   >
 <ul  class="tabContainer" >  

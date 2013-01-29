@@ -22,25 +22,20 @@ include("tableObjects/projectsTable.php");
  mysql_connect("$dbhost","$dbuser","$dbpass");
  mysql_select_db("$dbdatabase");
 
- $query= "SELECT * FROM users u,donors d  WHERE u.".$user['id']."=d.user_id AND ".$user['regStatus']."='P' ";          
- //$query= "SELECT \"".$user['id']."\",\"".$user['typeID']."\" FROM users  WHERE  (".$user['regStatus']."='P') ";          
- $donorResult = mysql_query($query);
- ?>
- 
- 
- 
- <?php
  /* Connects to database and get volunteering details along with volunteer information and the project they worked on */
- 
- //Get the volunteer IDs whose volunteerings approvals are pending
 	
-	$volunteeringQuery= "SELECT * FROM volunteering v, donor d, projects p WHERE ".$vlounteer['status']."='P'";
+	//$volunteeringQuery= "SELECT * FROM volunteering v, donor d, projects p WHERE ".$volunteer['status']."='P'";
 	
 	
-	$volunteeringQuery= "select d.".$donor['displayName'].",d.".$donor['gender'].",d.".$donor['city'].",d.".$donor['orgName'].",p.".$projects['title'].", v.* FROM donors d, volunteering v, projects p WHERE ((".$volunteering['status']."='p') AND (d.".$donor['id']."=v.".$volunteer['donorId'].") AND (p.".$project['projectId']."=v.".$project['id']."))";
-
+	$volunteeringQuery= "select d.".$donor['displayName'].",d.".$donor['gender'].",d.".$donor['city'].",d.".$donor['orgName'].",p.".$project['title'].", v.* FROM donors d, volunteering v, projects p WHERE ((".$volunteer['status']."='p') AND (d.".$donor['id']."=v.".$volunteer['donorId'].") AND (p.".$volunteer['projectId']."=v.".$project['id']."))";
+	echo $volunteeringQuery;
 	$result=mysql_query($volunteeringQuery);
-	
+
+	if ($result == NULL)
+	{
+		echo "result ochindhi";
+		echo $result;
+	}
  ?>
   
  
@@ -70,7 +65,9 @@ include("tableObjects/projectsTable.php");
  $volunteeringidArray;
  while($row = mysql_fetch_array($donorResult))
   {
-  	$calculatedTime=calculateTime($row[$volunteer['fromDate']],$row[$volunteer['toDate']],$row[$volunteer['fromTime']],$row[$volunteer['toTime']]);
+  	$calculatedTime="time";
+  	
+  	//$calculatedTime=calculateTime($row[$volunteer['fromDate']],$row[$volunteer['toDate']],$row[$volunteer['fromTime']],$row[$volunteer['toTime']]);
 	  $volunteeringidArray[$count]=$row[$volunteer['id']];
 		
 	    ?><tr <?php if($count%2) echo "class=alt" ?>>
@@ -151,7 +148,7 @@ if (isset($_POST['volunteeringApproval']))
 		 {
 		 	$approveCount++;
 		 }
-		 updateStatus($volunteeringid,$value);
+		 updateVolunteeringStatus($volunteeringid,$value);
 		 $count=$count-1;
 	 }
 	 
@@ -160,7 +157,7 @@ if (isset($_POST['volunteeringApproval']))
 
 }
 
-function updateStatus($volunteeringID,$status)
+function updateVolunteeringStatus($volunteeringID,$status)
 {
 	mysql_query("UPDATE users SET ".$volunteering['status']."='".$status."' WHERE ".$volunteering['id']."='".$volunteeringID."'");
 }
