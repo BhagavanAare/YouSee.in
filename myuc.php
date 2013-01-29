@@ -9,7 +9,6 @@
   <META NAME="Description" CONTENT="UC is an exchange platform to channel Philanthropic Resources to Education, Health and Environmental services sectors, in order to improve access to these services especially for the poor. These sectors need a much larger infusion of capital of various kinds including Financial, Intellectual and Social Capital.">
   <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
   <link rel="stylesheet" type="text/css" href="css/main.css">
-  <script>window.jQuery || document.write('<script src="css/jquery.js"><\/script>')</script>
   <script type="text/javascript" src="https://www.google.com/jsapi"></script>
   
   <!-- 
@@ -32,7 +31,7 @@
 <BODY>
 
 <!--wrapper begin-->
-<div id="wrapper">
+<div id="wrapper" style="background:white">
 
 <!--header and navbar -->
 <?php include 'header_navbar.php';?>
@@ -118,6 +117,8 @@ registerTab(group,"myInfoTab","myInfoDiv");
 <div style="display:none;" id="myInfoDiv">
 	myInfoTab..
 </div>
+<br />
+<br />
 <!--footer-->
 <?php include 'footer.php' ; ?>
 
