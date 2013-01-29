@@ -34,4 +34,8 @@
 	{
 		header("Location: myuc.php");
 	}
+	if ($_SESSION['SESS_USER_TYPE']=="A")
+	{
+		header("Location: adminHomescreen.php");
+	}
 ?>
