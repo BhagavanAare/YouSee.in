@@ -11,6 +11,8 @@
   <link rel="stylesheet" type="text/css" href="css/main.css">
   <script>window.jQuery || document.write('<script src="css/jquery.js"><\/script>')</script>
   <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  
+  <!-- 
   <script type="text/javascript">
   $(document).ready(function() {
     $(".tabLink").each(function(){
@@ -25,6 +27,7 @@
     });
   });
   </script>
+   -->
 </HEAD>
 <BODY>
 
@@ -49,21 +52,62 @@
 
 <br />
 
-<div class="tab-box">
+<!--<div class="tab-box">
     <a href="javascript:;" class="tabLink activeLink" id="cont-1">Volunteering Contributions</a>
     <a href="javascript:;" class="tabLink " id="cont-2">Financial Donations</a>
     <a href="javascript:;" class="tabLink " id="cont-3">Waste Donations</a>
 </div>
 
 <div class="tabcontent paddingAll" id="cont-1-1">
-	<?php include 'volunteer_personal_contributions_list.php';?>
+	<?php //include 'volunteer_personal_contributions_list.php';?>
 </div>
 
 <div class="tabcontent paddingAll hide" id="cont-2-1">
-	<?php include 'finance_personal_contributions_list.php';?>
+	<?php //include 'finance_personal_contributions_list.php';?>
 </div>
   
 <div class="tabcontent paddingAll hide" id="cont-3-1">
+	<table border="0" width="100%">
+			<tr>
+				<td align="center" width="50%"><?php //include 'donatewaste_graph_kg_personal.php';?></td>
+				<td align="center" width="50%"><?php //include 'donatewaste_graph_rs_personal.php';?></td>
+			</tr>
+	</table>
+</div>
+-->
+</div>
+<!--maincontentarea end-->
+
+<script src="scripts/tabscripts.js"></script>
+<script language="javascript" >
+var group="donationTabs";
+createGroup(group);
+registerTab(group,"volunteeringTab","volunteerDiv");
+registerTab(group,"financialTab","financialDiv");
+registerTab(group,"wasteTab","wasteDiv");
+registerTab(group,"myInfoTab","myInfoDiv");
+
+</script>
+
+<div id="tab" class="tab"   >
+<ul  class="tabContainer" >  
+<div id="tabs" class="tab-box">
+    <a onclick="showTab('donationTabs','volunteeringTab')" class="tabLink activeLink" id="volunteeringTab">Volunteering Contributions</a>
+    <a onclick="showTab('donationTabs','financialTab')" class="tabLink" id="financialTab">Financial Donations</a>
+    <a onclick="showTab('donationTabs','wasteTab')" class="tabLink" id="wasteTab">Waste Donations</a>
+    <a onclick="showTab('donationTabs','myInfoTab')" class="tabLink" id="myInfoTab">My Info</a>
+</div>
+</ul>
+</div>
+
+<div style="display:block;"   id="volunteerDiv">
+	<?php include 'volunteer_personal_contributions_list.php';?>
+</div>
+
+<div style="display:none;"  id="financialDiv">
+	<?php include 'finance_personal_contributions_list.php';?>
+</div>
+<div  id="wasteDiv" style="display:none;">
 	<table border="0" width="100%">
 			<tr>
 				<td align="center" width="50%"><?php include 'donatewaste_graph_kg_personal.php';?></td>
@@ -71,11 +115,9 @@
 			</tr>
 	</table>
 </div>
-
+<div style="display:none;" id="myInfoDiv">
+	myInfoTab..
 </div>
-<!--maincontentarea end-->
-
-
 <!--footer-->
 <?php include 'footer.php' ; ?>
 
