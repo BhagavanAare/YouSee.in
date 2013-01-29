@@ -17,7 +17,7 @@
 var group="adminTabs";
 createGroup(group);
 registerTab(group,"regApprovalsTab","regApprovalsDiv");
-registerTab(group,"regApprovalsTab1","regApprovalsDiv1");
+registerTab(group,"volunteeringApprovalsTab","volunteeringApprovalsDiv");
 
 </script>
 
@@ -29,35 +29,17 @@ registerTab(group,"regApprovalsTab1","regApprovalsDiv1");
 <body>
 <?php include("header_navbar.php"); ?>
 
-
-<?php
-
-
-	if(!isset($_SESSION['formname']))
-	{
-		if(!isset($_POST['ngoApprovalRegistration']))
-		{
-			echo "<script> showTab('adminTabs','regApprovalsTab')</script>";
-		}
-	}
-	else
-	{
-		echo "<script> showTab('adminTabs','regApprovalsTab1')</script>";
-	}
-
-?>
-
 <div id="tab" class="tab"   >
 <ul  class="tabContainer" >  
 <div id="tabs" class="tab-box">
     <a onclick="showTab('adminTabs','regApprovalsTab')" class="tabLink" id="regApprovalsTab">Registration Approvals</a>
-    <a onclick="showTab('adminTabs','regApprovalsTab1')" class="tabLink" id="regApprovalsTab1">Registration</a>
+    <a onclick="showTab('adminTabs','volunteeringApprovalsTab')" class="tabLink" id="volunteeringApprovalsTab">Registration</a>
 </div>
 </ul>
 </div>
 
 <div style="display:block;" id="regApprovalsDiv"><?php include('admin/registrationApprovalForm.php'); ?></div>
-<div style="display:none;" id="regApprovalsDiv1">kdjfhskdfkdsjgkhjdkfngkjdhfjgdj</div>
+<div style="display:none;" id="volunteeringApprovalsDiv"><?php include('admin/volunteeringApprovalForm.php'); ?></div>
 <?php
 
 /*Restore Active tab after reloading the page*/
