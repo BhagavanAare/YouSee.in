@@ -30,4 +30,8 @@
 		}
 		*/
 	}
+	if ($_SESSION['SESS_USER_TYPE']=="D")
+	{
+		header("Location: myuc.php");
+	}
 ?>
