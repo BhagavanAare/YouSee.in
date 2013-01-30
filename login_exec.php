@@ -67,6 +67,7 @@ if ($result) {
 		$user = mysql_fetch_assoc($result);
 		$_SESSION['SESS_USER_ID'] = $user['user_id'];
 		$_SESSION['SESS_USER_TYPE'] = $user['user_type_id'];
+		//echo "<script>alert('".$user['user_type_id']."');</script>";
 		$_SESSION['SESS_USERNAME'] = $user['username'];
 		setRequiredInfo();
 		session_write_close();
@@ -83,7 +84,7 @@ if ($result) {
 }
 function setRequiredInfo()
 {
-	if ($_SESSION['SESS_USER_TYPE'] = "D")
+	if ($_SESSION['SESS_USER_TYPE'] == "D")
 	{
 		$query = "SELECT displayname, donor_id
           				FROM donors
@@ -96,12 +97,12 @@ function setRequiredInfo()
 				$donor = mysql_fetch_assoc($result);
 				$_SESSION['SESS_DONOR_ID'] = $donor['donor_id'];
 				$_SESSION['SESS_DISPLAYNAME'] = $donor['displayname'];
-				session_write_close();
+				
 			}
 			
 		}
 	}
-	if ($_SESSION['SESS_USER_TYPE'] = "N")
+	if ($_SESSION['SESS_USER_TYPE'] == "N")
 	{
 		$query = "SELECT name
           				FROM project_partners
@@ -117,7 +118,7 @@ function setRequiredInfo()
 			}
 		}
 	}
-	if ($_SESSION['SESS_USER_TYPE'] = "A")
+	if ($_SESSION['SESS_USER_TYPE'] == "A")
 	{
 		$_SESSION['SESS_DISPLAYNAME'] = $user['username'];
 	}
