@@ -9,6 +9,6 @@
 <li<?php if ($thispage == "projects_partners") echo " id=\"currentpage\"";?>><a href="projects_partners.php">Projects & Partners</a></li>
 <li<?php if ($thispage == "aboutuc") echo " id=\"currentpage\"";?>><a href="aboutuc.php">About UC</a></li>
 <li<?php if ($thispage == "contact") echo " id=\"currentpage\"";?>><a href="contact.php">Contact</a></li>
-<li<? if ($thispage == "myuc") echo " id=\"currentpage\"";?>><a href="myuc.php">MyUC</a></li>
+<li<?php if ($thispage == "myuc") echo " id=\"currentpage\"";?>><a href="myuc.php">MyUC</a></li>
 </ul> 
 </div>

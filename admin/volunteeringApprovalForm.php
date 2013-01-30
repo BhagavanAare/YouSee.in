@@ -39,8 +39,8 @@ include("tableObjects/projectsTable.php");
  ?>
   
  
- <form id="approveVolunteeringRequests" name="approveVolunteeringRequests" method="post" action=".php">
- <input name="formname" type="hidden" value="actionDonor" />
+ <form id="approveVolunteeringRequests" name="approveVolunteeringRequests" method="post" action="redirect.php">
+ <input name="formname" type="hidden" value="volunteeringApprovalForm" />
  <table align="center" id="altColorTable" border="0">
  <tr class="alt">
  	<td>S.No</td>
@@ -153,7 +153,7 @@ if (isset($_POST['volunteeringApproval']))
 	 }
 	 
 	 /*echo "<script>alert('$donor');</script>";*/
-	 echo "<script>window.location.href='registrationApprovalForm.php'</script>";
+
 
 }
 

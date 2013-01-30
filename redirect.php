@@ -1,7 +1,19 @@
 <?php
-	session_start();
-	//echo "dfksdkfjksdfsdfsdf";
-	//echo $_POST['formname'];
+session_start();
+//echo "dfksdkfjksdfsdfsdf";
+//echo $_POST['formname'];
+/*
+ elseif($formname="donorApproveRegistration" || $formname="ngoApproveRegistration")
+ {
+ $_SESSION['activeTab']="regApprovalsTab";
+ }
+ */
+if ($_SESSION['SESS_USER_TYPE']=="D")
+{
+	header("Location: myuc.php");
+}
+elseif ($_SESSION['SESS_USER_TYPE']=="A")
+{
 	if(isset($_POST['formname']))
 	{
 		//echo "dfksdkfjksdfsdfsdf";
@@ -9,33 +21,26 @@
 		//echo $formname;
 		if($formname=="donorApproveRegistration" || $formname=="ngoApproveRegistration")
 		{
-			//$x= isset($_SESSION['SESS_USER_TYPE']);
-			//echo "<script>alert($x);</script>";
 			$_SESSION['activeTab']="regApprovalsTab";
-			if($_SESSION['SESS_USER_TYPE']=="A")
-			{
-				/* Redirect to a different page in the current directory that was requested */
+			$_SESSION['POST_DATA']=$_POST;
+			/*if($_SESSION['SESS_USER_TYPE']=="A")
+				{
+				// Redirect to a different page in the current directory that was requested
 				$host  = $_SERVER['HTTP_HOST'];
 				$uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 				$extra = 'adminHomescreen.php';
 				header("Location: http://$host$uri/$extra");
 				echo "dfksdkfjksdfsdfsdf";
+					
 				exit;
-			}
+				}*/
 		}
-		/*
-		elseif($formname="donorApproveRegistration" || $formname="ngoApproveRegistration")
+		if($formname=="volunteeringApprovalForm")
 		{
-			$_SESSION['activeTab']="regApprovalsTab";
+			$_SESSION['activeTab']="volApprovalsTab";
+
 		}
-		*/
 	}
-	if ($_SESSION['SESS_USER_TYPE']=="D")
-	{
-		header("Location: myuc.php");
-	}
-	elseif ($_SESSION['SESS_USER_TYPE']=="A")
-	{
-		header("Location: adminHomescreen.php");
-	}
+	header("Location: adminHomescreen.php");
+}
 ?>

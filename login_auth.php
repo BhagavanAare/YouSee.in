@@ -7,4 +7,5 @@
 		header("location: login_access_denied.php");
 		exit();
 	}
+	
 ?>

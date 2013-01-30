@@ -7,9 +7,6 @@ if (!($_SESSION['SESS_USER_TYPE']=='A'))
 }
 	//session_start();
 ?>
-
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -44,7 +41,7 @@ if (!$_SESSION['SESS_USER_TYPE']=="A")
 <ul  class="tabContainer" >  
 <div id="tabs" class="tab-box">
     <a onclick="showTab('adminTabs','regApprovalsTab')" class="tabLink" id="regApprovalsTab">Registration Approvals</a>
-    <a onclick="showTab('adminTabs','volunteeringApprovalsTab')" class="tabLink" id="volunteeringApprovalsTab">Registration</a>
+    <a onclick="showTab('adminTabs','volunteeringApprovalsTab')" class="tabLink" id="volunteeringApprovalsTab">volunteering Approvals</a>
 </div>
 </ul>
 </div>
@@ -63,16 +60,18 @@ if (!$_SESSION['SESS_USER_TYPE']=="A")
 		}
 		else
 		{
-			echo "<script> showTab('adminTabs','regApprovalsTab1')</script>";
+			echo "<script> showTab('adminTabs','volunteeringApprovalsTab')</script>";
 		}
 		
 	}
 	else
 		{
-			echo "<script> showTab('adminTabs','regApprovalsTab1')</script>";
+			echo "<script> showTab('adminTabs','regApprovalsTab')</script>";
 		}
 	
 ?>
+
+
 
 
 <!--footer-->
