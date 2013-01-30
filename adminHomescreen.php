@@ -1,5 +1,10 @@
 <?php require_once('login_auth.php');?>
 <?php $thispage ="adminHomescreen"; 
+if (!($_SESSION['SESS_USER_TYPE']=='A'))
+{
+		header("location: login_access_denied.php");
+		exit();
+}
 	//session_start();
 ?>
 
