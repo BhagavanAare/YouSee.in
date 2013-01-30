@@ -33,6 +33,11 @@ $ngoResultCount=mysql_num_rows($ngoResult);
 
 <?php
 $password;
+$ngocount;
+$ngoUseridArray;
+$donorcount=0;
+$donorUseridArray;
+$useridArray;
 
 if(isset($_SESSION['POST_DATA']))
 {
@@ -54,35 +59,37 @@ registerTab(group,"ngo","ngoDiv");
 <ul class="tabContainer">
 	<div id="tabs" class="tab-box"><a
 		onClick="showTab('regApproval','donor');" class="tabLink activeLink"
-		id="donor">Donors <?php echo " (".$donorResultCount.")";?></a> <a onClick="showTab('regApproval','ngo')"
-		class="tabLink" id="ngo"> NGOs <?php echo " (".$ngoResultCount.")"?> </a></div>
+		id="donor">Donors <?php echo " (".$donorResultCount.")";?></a> <a
+		onClick="showTab('regApproval','ngo')" class="tabLink" id="ngo"> NGOs
+		<?php echo " (".$ngoResultCount.")";?> </a></div>
 </ul>
 </div>
 
 
-<div align="center" id="donorDiv" style="display: block">
-<?php if ($donorResultCount>0)
+<div align="center" id="donorDiv" style="display: block"><?php 
+if ($donorResultCount>0)
 {
 	generateDonorTable();
 }
-else 
+elseif ($donorResultCount==0)
 {
 	echo "You don't have any Registrations to Approve";
-}?>
-
- </div>
-<div align="center" id="ngoDiv" style="display: none"> </div>
-<?php if ($ngoResultCount>0)
+}
+?></div>
+<div align="center" id="ngoDiv" style="display: none"><?php if ($ngoResultCount>0)
 {
 	generateNgoTable();
 }
-else 
+else
 {
 	echo "You don't have any Registrations to Approve";
-}?>
+}?></div>
 
-<?php function generateDonorTable()
-{ ?>
+<?php
+function generateDonorTable()
+{
+	global $donorResult,$user,$donor,$donorcount,$donorUseridArray,$useridArray;
+	?>
 
 
 
@@ -102,9 +109,7 @@ else
 		<td>Email ID</td>
 		<td>Action</td>
 	</tr>
-	<?php $donorcount=0;
-	$donorUseridArray;
-	$useridArray;
+	<?php
 	while($row = mysql_fetch_array($donorResult))
 	{
 		$donorUseridArray[$donorcount]=$row[$user['id']];
@@ -166,8 +171,12 @@ else
 
 
 
-<?php function generateNgoTable()
-{?>
+<?php
+
+function generateNgoTable()
+{
+	global $user,$ngo,$ngoResult,$ngocount,$ngoUseridArray;
+	?>
 <form id="approveRequests" name="approveRequests" method="post"
 	action="redirect.php"><!-- a hidden field to identify which form is submitted.. field name is default for all forms value will be the name of form-->
 <input name="formname" type="hidden" value="ngoApproveRegistration" />
@@ -188,14 +197,11 @@ else
 		<td>Action</td>
 	</tr>
 	<?php
-	$ngocount=0;
-	$ngoUseridArray;
-	
 
-	while($row = mysql_fetch_array($ngoResult)) 
+	while($row = mysql_fetch_array($ngoResult))
 	{
-	$ngoUseridArray[$ngocount]=$row[$user['id']]; 
-	//echo "".$ngoUseridArray[$ngocount]." count= ".$ngocount; ?>
+		$ngoUseridArray[$ngocount]=$row[$user['id']];
+		//echo "".$ngoUseridArray[$ngocount]." count= ".$ngocount; ?>
 	<tr <?php if($ngocount%2) echo "class=alt" ?>>
 		<td><?php echo ++$ngocount; ?></td>
 		<td><?php echo "".$row[$user['username']];?></td>
@@ -253,7 +259,7 @@ else
 	</tr>
 	<?php
 	}
-	
+
 	?>
 </table>
 <input name="ngoApprovalRegistration" type="submit" value="submit" /></form>
@@ -261,176 +267,176 @@ else
 
 	<?php
 }
-	?>
-	<?php
-	$donorFormName="donorApprovalRegistration";
-	$ngoFormName="ngoApprovalRegistration";
-	if (isset($_POST[$donorFormName]) || isset($_POST[$ngoFormName]))
+?>
+<?php
+$donorFormName="donorApprovalRegistration";
+$ngoFormName="ngoApprovalRegistration";
+if (isset($_POST[$donorFormName]) || isset($_POST[$ngoFormName]))
+{
+	//echo " donor submitted <br />";
+	$counter=0;
+	$count;
+	$radioText;
+	$displayName;
+	//echo "fjgsdfjbsjkdfhjkasdfjksdf";
+	if(isset($_POST['donorApprovalRegistration']))
 	{
-		//echo " donor submitted <br />";
-		$counter=0;
-		$count;
-		$radioText;
-		$displayName;
-		//echo "fjgsdfjbsjkdfhjkasdfjksdf";
-		if(isset($_POST['donorApprovalRegistration']))
+		$count=$donorcount;
+		//echo $count;
+		$radioText="daction";
+		$useridArray=$donorUseridArray;
+
+
+	}
+	else
+	{
+		$count=$ngocount;
+		$radioText="naction";
+		$useridArray=$ngoUseridArray;
+	}
+	while($count)
+	{
+		$email;
+		$userid=$useridArray[$counter];
+		//echo "     ".$useridArray[$counter];
+		//echo " count=".$count." counter=".$counter." userid=".$userid."<br />";
+
+		$counter++;
+		$radioID="".$radioText."".$userid;
+		//echo "".$radioID;
+		$value=$_POST[$radioID];
+		/*echo "<script>alert('$value')</script>";*/
+		if($value=="A")
 		{
-			$count=$donorcount;
-			//echo $count;
-			$radioText="daction";
-			$useridArray=$donorUseridArray;
+
+			//echo $userid." approved";
+			updateStatus($userid,$value);
+			$password=setPassword($userid);
+			//	$username=$_POST["".$user['username']."".$userid];
+			$username=$email;
+
+			/*echo "<script>alert('$username')</script>";*/
+			sendEmail($userid,$email,$username,$password);
+
+		}
+		elseif($value=="R")
+		{
+			//echo $userid." rejected";
+			updateStatus($userid,$value);
+		}
+		elseif($value=="S")
+		{
+			//echo $userid." stalled";
+		}
+
+		$count=$count-1;
+	}
+	$approveCount;
+	/*echo "<script>alert('$donor');</script>";*/
+	echo "<script>window.location.href='adminHomescreen.php'</script>";
+
+}
+?>
 
 
+
+
+<?php
+
+
+function updateStatus($userID,$status)
+{
+
+	global $user,$donor,$useridArray,$displayName,$email,$ngo,$donorFormName;
+
+	//echo "UPDATE users SET ".$user['regStatus']."='".$status."' WHERE ".$user['id']."='".$userID."'<br />";
+	mysql_query("UPDATE users SET ".$user['regStatus']."='".$status."' WHERE ".$user['id']."='".$userID."'");
+
+	if (isset($_POST[$donorFormName]))
+	{
+		$dpname="".$donor['displayName']."".$userID;
+		$displayName=$_POST[$dpname];
+		$mailName="".$user['username']."".$userID;
+		$email= $_POST[$mailName];
+	}
+	else
+	{
+		$dpname="".$ngo['name']."".$userID;
+		$displayName=$_POST[$dpname];
+		$mailName="".$ngo['partnerEmail']."".$userID;
+		$email= $_POST[$mailName];
+	}
+
+
+}
+function sendEmail($userID,$email,$username,$password)
+{
+	include_once ("Email/class.phpmailer.php");
+	include("Email/config.php");
+	global $user,$donor,$useridArray,$displayName,$donorFormName;
+
+	//echo "     email  ".$email;
+	//echo "   dpname   ".$displayName;
+	try{
+
+		$to = $email;
+		$mail->AddAddress($to);
+		$subject= "don't reply - Registration Confirmation ";
+
+
+		$body =  "Dear  " . $displayName . "<br>This is to acknowledge completion of registration on UC website.You can now visit yousee.in with the following <br/> Username : " . $username . " <br/> password : " . $password . "";
+
+		$mail->Subject = $subject;
+		$mail->Body = $body;
+		if($mail->Send())
+		{
+			;
 		}
 		else
 		{
-			$count=$ngocount;
-			$radioText="naction";
-			$useridArray=$ngoUseridArray;
+			echo "<script>alert('Email Failed');</script>";
 		}
-	 while($count)
-	 {
-		 $email;
-		 $userid=$useridArray[$counter];
-		 //echo "     ".$useridArray[$counter];
-		 //echo " count=".$count." counter=".$counter." userid=".$userid."<br />";
-
-		 $counter++;
-		 $radioID="".$radioText."".$userid;
-		 //echo "".$radioID;
-		 $value=$_POST[$radioID];
-		 /*echo "<script>alert('$value')</script>";*/
-		 if($value=="A")
-		 {
-
-		 	//echo $userid." approved";
-		 	updateStatus($userid,$value);
-				$password=setPassword($userid);
-				//	$username=$_POST["".$user['username']."".$userid];
-				$username=$email;
-
-				/*echo "<script>alert('$username')</script>";*/
-				sendEmail($userid,$email,$username,$password);
-
-		 }
-		 elseif($value=="R")
-		 {
-			 //echo $userid." rejected";
-			 updateStatus($userid,$value);
-		 }
-		 elseif($value=="S")
-		 {
-			 //echo $userid." stalled";
-		 }
-
-		 $count=$count-1;
-	 }
-	 $approveCount;
-	 /*echo "<script>alert('$donor');</script>";*/
-	 //echo "<script>window.location.href='registrationApprovalForm.php'</script>";
-
+		//echo 'Registration Complete.';
 	}
-	?>
+	catch (phpmailerException $e) {
+		echo $e->errorMessage();
+		echo "<script>alert('Message failed');</script>";
+	}
+
+}
+function setPassword($userID) {
+	global $user;
+	$length=8;
+	$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+	$password = substr(str_shuffle($chars),0,$length);
+	//echo $password;
+	mysql_query("UPDATE users SET ".$user['password']."='".$password."' WHERE ".$user['id']."='".$userID."'");
+	return $password;
+}
 
 
+?>
+<?php
 
 
-	<?php
+if(isset($_POST['formname']))
+{
+	echo("neeeeeeeeeee");
 
-
-	function updateStatus($userID,$status)
+	echo $_POST['formname'];
+	echo "<script> alert('fasjd');</script>";
+	if($_POST['formname']==$donorFormName)
 	{
-
-		global $user,$donor,$useridArray,$displayName,$email,$ngo,$donorFormName;
-
-		//echo "UPDATE users SET ".$user['regStatus']."='".$status."' WHERE ".$user['id']."='".$userID."'<br />";
-		mysql_query("UPDATE users SET ".$user['regStatus']."='".$status."' WHERE ".$user['id']."='".$userID."'");
-
-		if (isset($_POST[$donorFormName]))
-		{
-			$dpname="".$donor['displayName']."".$userID;
-			$displayName=$_POST[$dpname];
-			$mailName="".$user['username']."".$userID;
-			$email= $_POST[$mailName];
-		}
-		else
-		{
-			$dpname="".$ngo['name']."".$userID;
-			$displayName=$_POST[$dpname];
-			$mailName="".$ngo['partnerEmail']."".$userID;
-			$email= $_POST[$mailName];
-		}
-
-
+		echo "<script> showTab('regApproval','ngo')</script>";
 	}
-	function sendEmail($userID,$email,$username,$password)
+	else
 	{
-		include_once ("Email/class.phpmailer.php");
-		include("Email/config.php");
-		global $user,$donor,$useridArray,$displayName,$donorFormName;
-
-		//echo "     email  ".$email;
-		//echo "   dpname   ".$displayName;
-		try{
-
-			$to = $email;
-			$mail->AddAddress($to);
-			$subject= "don't reply - Registration Confirmation ";
-
-
-			$body =  "Dear  " . $displayName . "<br>This is to acknowledge completion of registration on UC website.You can now visit yousee.in with the following <br/> Username : " . $username . " <br/> password : " . $password . "";
-
-			$mail->Subject = $subject;
-			$mail->Body = $body;
-			if($mail->Send())
-			{
-				;
-			}
-			else
-			{
-				echo "<script>alert('Email Failed');</script>";
-			}
-			//echo 'Registration Complete.';
-		}
-		catch (phpmailerException $e) {
-			echo $e->errorMessage();
-			echo "<script>alert('Message failed');</script>";
-		}
-
+		echo "<script> showTab('regApproval','donor')</script>";
 	}
-	function setPassword($userID) {
-		global $user;
-		$length=8;
-		$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-		$password = substr(str_shuffle($chars),0,$length);
-		//echo $password;
-		mysql_query("UPDATE users SET ".$user['password']."='".$password."' WHERE ".$user['id']."='".$userID."'");
-		return $password;
-	}
+}
 
 
-	?>
-	<?php
-
-
-	if(isset($_POST['formname']))
-	{
-		echo("neeeeeeeeeee");
-
-		echo $_POST['formname'];
-		echo "<script> alert('fasjd');</script>";
-		if($_POST['formname']==$donorFormName)
-		{
-			echo "<script> showTab('regApproval','donor')</script>";
-		}
-		else
-		{
-			echo "<script> showTab('regApproval','ngo')</script>";
-		}
-	}
-
-
-	?>
+?>
 
 
 </body>
