@@ -4,14 +4,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Untitled Document</title>
 <style type="text/css">
-#apDiv1 {
-	position:absolute;
-	left:282px;
-	top:22px;
-	width:242px;
-	height:148px;
-	z-index:1;
-}
 input.button_add {
     background-image: url(/images/profilePic.png); /* 16px x 16px */
     background-color: transparent; /* make the button transparent */
@@ -22,6 +14,7 @@ input.button_add {
     height: 100px;           /* make this the size of your image */
     padding-left: 0px;     /* make text start to the right of the image */
     vertical-align: middle; /* align the text vertically centered */
+}
 </style>
 
 </head>
@@ -33,13 +26,13 @@ input.button_add {
     <table  border="0">
       <tr>
         <td><label for="firstName">First name</label></td>
-        <td><input name="fname" type="text" id="firstName" /></td>
-        <td></td>
+        <td><input placeholder "Enter your First Name" name="fname" type="text" id="firstName" /></td>
+        <td><div class="error" id="NGO_fname_errorloc" ></div></td>
       </tr>
       <tr>
         <td><label for="lastName">Last name</label></td>
         <td><input name="lname" type="text" id="lastName" /></td>
-        <td>&nbsp;</td>
+        <td><div class="error" id="NGO_lname_errorloc" ></div></td>
       </tr>
       <tr>
         <td>Gender</td>
@@ -56,7 +49,7 @@ input.button_add {
         <td>&nbsp;</td>
       </tr>
       <td><label>Date of Birth</label>&nbsp;</td>
-        <td>(Date picker)</td>
+        <td><input name="dob" type="text" id="dobngo" /></td>
         <td>&nbsp;</td>
         
       <tr>
@@ -65,7 +58,7 @@ input.button_add {
         <td>&nbsp;</td>
       </tr>
       <tr>
-    <td><label for="phone_number">Phone number</label></td>
+    <td><label for="phone_number">Phone Number * <span class="link"><a href="javascript: void(0)"><font face=verdana,arial,helvetica size=2>[?]</font><span>Enter a valid Phone Number</span></a></span></label></td>
     <td>
       
       <input type="text" name="phno" id="phone_number" />
@@ -73,7 +66,7 @@ input.button_add {
     <td>&nbsp;</td>
   </tr>
   <tr>
-    <td><label for="personal_emailid"> Email ID</label></td>
+    <td><label for="personal_emailid"> Email ID <span class="link"><a href="javascript: void(0)"><font face=verdana,arial,helvetica size=2>[?]</font><span>Please enter valid Email ID for confirming your registration</span></a></span></label></td>
     <td>
       <input type="text" name="personalEmail" id="personal_emailid" /></td>
     <td>&nbsp;</td>
@@ -83,5 +76,17 @@ input.button_add {
   </div>
   <div></div>
 
+
+
 </body>
+      <script type="text/javascript">
+
+	frmvalidator.addValidation("fname","req","please enter first name");
+	frmvalidator.addValidation("lname","req","please enter last name");
+	frmvalidator.addValidation("personalEmail","email","please enter last name");
+	frmvalidator.addValidation("phno","num","please enter last name");
+
+	
+	
+  </script>
 </html>
