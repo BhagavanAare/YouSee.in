@@ -20,7 +20,8 @@ mysql_connect("$dbhost","$dbuser","$dbpass");
 mysql_select_db("$dbdatabase");
 
 
-$volunteeringQuery= "select d.".$donor['displayName'].",d.".$donor['gender'].",d.".$donor['city'].",d.".$donor['orgName'].",p.".$project['title'].", v.* FROM donors d, volunteering v, projects p WHERE ((".$volunteer['status']."='p') AND (d.".$donor['id']."=v.".$volunteer['donorId'].") AND (p.".$volunteer['projectId']."=v.".$project['id']."))";
+//$volunteeringQuery= "select d.".$donor['displayName'].",d.".$donor['gender'].",d.".$donor['city'].",d.".$donor['orgName'].",p.".$project['title'].", v.* FROM donors d, volunteering v, projects p WHERE ((".$volunteer['status']."='p') AND (d.".$donor['id']."=v.".$volunteer['donorId'].") AND (p.".$volunteer['projectId']."=v.".$project['id']."))";
+$volunteeringQuery= "select d.".$donor['displayName'].",d.".$donor['gender'].",d.".$donor['city'].",d.".$donor['orgName'].",p.".$project['title'].", v.* FROM donors d, volunteering v, projects p WHERE ((".$volunteer['status']."='p') AND (d.".$donor['id']."=v.".$volunteer['donorId']."))";
 echo $volunteeringQuery;
 $result=mysql_query($volunteeringQuery);
 $resultCount=mysql_num_rows($result);
@@ -132,7 +133,7 @@ else
 	<?php
 }?>
 
-
+   
 
 <?php
 if (isset($_POST['volunteeringApproval']))

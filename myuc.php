@@ -10,7 +10,38 @@
   <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
   <link rel="stylesheet" type="text/css" href="css/main.css">
   <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-  
+  <html lang="en">
+	<head>
+    
+    <style type="text/css">
+
+span.link {
+    	position: relative;
+}
+
+    span.link a span {
+    	display: none;
+}
+
+span.link a:hover {
+    	font-size: 99%;
+    	font-color: #000000;
+}
+
+span.link a:hover span { 
+    display: block; 
+    	position: absolute; 
+    	margin-top: 10px; 
+    	margin-left: -10px; 
+	    width: 175px; padding: 5px; 
+    	z-index: 100; 
+    	color: #000000; 
+    	background: #f0f0f0; 
+    	font: 12px "Arial", sans-serif;
+    	text-align: left; 
+    	text-decoration: none;
+}
+</style>
   <!-- 
   <script type="text/javascript">
   $(document).ready(function() {
@@ -84,7 +115,7 @@ createGroup(group);
 registerTab(group,"volunteeringTab","volunteerDiv");
 registerTab(group,"financialTab","financialDiv");
 registerTab(group,"wasteTab","wasteDiv");
-registerTab(group,"myInfoTab","myInfoDiv");
+registerTab(group,"updateVolunteeringTab","updateVolunteeringDiv");
 
 </script>
 
@@ -94,7 +125,7 @@ registerTab(group,"myInfoTab","myInfoDiv");
     <a onclick="showTab('donationTabs','volunteeringTab')" class="tabLink activeLink" id="volunteeringTab">Volunteering Contributions</a>
     <a onclick="showTab('donationTabs','financialTab')" class="tabLink" id="financialTab">Financial Donations</a>
     <a onclick="showTab('donationTabs','wasteTab')" class="tabLink" id="wasteTab">Waste Donations</a>
-    <a onclick="showTab('donationTabs','myInfoTab')" class="tabLink" id="myInfoTab">My Info</a>
+    <a onclick="showTab('donationTabs','updateVolunteeringTab')" class="tabLink" id="updateVolunteeringTab">Update Volunteering Info</a>
 </div>
 </ul>
 </div>
@@ -114,8 +145,8 @@ registerTab(group,"myInfoTab","myInfoDiv");
 			</tr>
 	</table>
 </div>
-<div style="display:none;" id="myInfoDiv">
-	myInfoTab..
+<div style="display:none;" id="updateVolunteeringDiv">
+	<?php include 'volunteering/updateActivity.php';?>
 </div>
 <br />
 <br />
