@@ -19,7 +19,9 @@
   <tr>
     <td><label for="group_type">Org/Group type</label></td>
     <td>
-      <select name="orgType" style="text-transform:capitalize" id="group_type">
+      <select name="orgType" id="group_type">
+		<option value=" ">None</option >
+		<option value="academy">Academic Institution</option >
         <option value="company">Company</option >
         <option value="society">Cooperative Society</option>
         <option value="family">Family</option>

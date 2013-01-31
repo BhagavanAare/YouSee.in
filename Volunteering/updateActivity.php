@@ -3,6 +3,36 @@
 <script src="../scripts/jquery.ui.core.js"></script>
 <script src="../scripts/jquery.ui.widget.js"></script>
 <script src="../scripts/datepicker.js"></script>
+<style type="text/css">
+
+span.link {
+    	position: relative;
+}
+
+    span.link a span {
+    	display: none;
+}
+
+span.link a:hover {
+    	font-size: 99%;
+    	font-color: #000000;
+}
+
+span.link a:hover span { 
+    display: block; 
+    	position: absolute; 
+    	margin-top: 10px; 
+    	margin-left: -10px; 
+	    width: 175px; padding: 5px; 
+    	z-index: 100; 
+    	color: #000000; 
+    	background: #f0f0f0; 
+    	font: 12px "Arial", sans-serif;
+    	text-align: left; 
+    	text-decoration: none;
+}
+</style>
+
 
 <script type="text/javascript">
 		$(function() {
@@ -24,17 +54,17 @@ $donorid=$_SESSION['SESS_DONOR_ID'];
  $result = "SELECT project_id,project_title FROM projects";
  $projectResult=mysql_query($result);
  ?>
-yousee follows conservative approach to record volunteer hours to ensure there is no accidental over report of volunteer hours. We believe and acknowledge that the actual volunteer contributions are much more than entered hours.
+
 <form action="" method="post" name="activity" onsubmit="return isProject()">
   <p>&nbsp;</p>
   <table width="484" height="221" border="0" id="volID">
     <tr>
-          <th scope="col"></th>
+          
       <th scope="col"><label for="fromDate">From Date</label></th>
       <th scope="col"><label for="toDate">To Date</label></th>
       <th scope="col"><label for="fromTime">From Time</label></th>
       <th scope="col"><label for="toTime">To Time</label></th>
-      <th scope="col"><label for="hours">Conservative Hours<span class="link"><a href="javascript: void(0)"><font face=verdana,arial,helvetica size=2>[?]</font><span>yousee follows conservative approach to record volunteer hours to ensure there is no accidental over report of volunteer hours. We believe and acknowledge that the actual volunteer contributions are much more than entered hours.</span></a></span></label></th>
+      <th scope="col"><label for="hours">Conservative Hours<span class="link"><a href="javascript: void(0)"><font face=verdana,arial,helvetica size=2>[?]</font><span>YouSee follows conservative approach to record volunteer hours to ensure there is no accidental over report of volunteer hours. We believe and acknowledge that the actual volunteer contributions are much more than entered hours.</span></a></span></label></th>
       <th scope="col"><label for="area">Area</label></th>
       <th scope="col"><label for="activity">Activity</label></th>
       <th scope="col"><label for="on_off">Onsite/<br />Offsite</label></th>
@@ -43,11 +73,10 @@ yousee follows conservative approach to record volunteer hours to ensure there i
       <th scope="col"><label for="project">Project</label></th>
     </tr>
     <tr>
-    	<td><INPUT type="checkbox" name="chk"/></td>
-      <td><input class="date" size="7" type="date" name="fromDate[]" id="fromDate" /></td>
-      <td><input class="date" size="7" type="date" name="toDate[]"  id="toDate" /></td>
-      <td><input size="7" type="time" name="fromTime[]" id="fromTime" /></td>
-      <td><input size="7" type="time" name="toTime[]" id="toTime" /></td>
+      <td><input class="date" size="7" type="text" name="fromDate[]" id="fromDate" /></td>
+      <td><input class="date" size="7" type="text" name="toDate[]"  id="toDate" /></td>
+      <td><input size="7" type="text" name="fromTime[]" id="fromTime" /></td>
+      <td><input size="7" type="text" name="toTime[]" id="toTime" /></td>
       <td><input size="7" type="text" name="hours[]" id="hours" /></td>
       <td><input size="7" type="text" name="area[]" id="area" /></td>
       <td><input size="7" type="text" name="activity[]" id="activity" /></td>
@@ -71,7 +100,7 @@ yousee follows conservative approach to record volunteer hours to ensure there i
     </tr>
   </table>
   <INPUT type="button" value="Add Row" onclick="addRow('volID')" />
-<INPUT type="button" value="Delete Row" onclick="deleteRow('volID')" />
+<INPUT type="button" value="Delete Last Row" onclick="deleteRow('volID')" />
 
   <p><input name="submit[]" type="submit" value="Submit" /></p>
 </form>
@@ -152,30 +181,23 @@ function isProject()
         }
  
         function deleteRow(volID) {
-
             try {
             var table = document.getElementById(volID);
             var rowCount = table.rows.length;
- 				
-            for(var i=1; i<rowCount; i++) {
-				
+            if(rowCount <= 2) {
+                alert("Cannot delete all the rows.");
+                return;
+            }
+            var i=rowCount-1; 
                 var row = table.rows[i];
                 var chkbox = row.cells[0].childNodes[0];
-				//alert(chkbox);
-                if(null != chkbox && true == chkbox.checked) {
-					//alert('jksdfg');
-                    if(rowCount <= 1) {
-                        alert("Cannot delete all the rows.");
-                        break;
-                    }
-                    table.deleteRow(i);
-                    rowCount--;
-                    i--;
+                 table.deleteRow(i);
+                
                 }
  
  
-            }
-            }catch(e) {
+            
+            catch(e) {
                 alert(e);
             }
         }

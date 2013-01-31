@@ -9,7 +9,7 @@
 
 <table border="0">
   <tr>
-    <td><label for="partner_name">Partner name*</label></td>
+    <td><label for="partner_name">Organisation Name*</label></td>
     <td>
       
       <input type="text" name="partnerName" style="text-transform:capitalize" id="partner_name" />
@@ -17,18 +17,18 @@
     <td><div class="error" id="NGO_partnerName_errorloc"></td>
   </tr>
   <tr>
-    <td><label for="partner_type">Partner type*</label></td>
+    <td><label for="partner_type">Organisation Type*</label></td>
     <td>
       <select name="partnerType" id="partner_type">
-        <option value="govt">Government Institution</option >
-        <option value="company">Section 25 Company</option>
-        <option value="socetiey">Society</option>
-        <option value="trust">Trust</option>
+        <option value="Government">Government Institution</option >
+        <option value="Company">Section 25 Company</option>
+        <option value="Society">Society</option>
+        <option value="Trust">Trust</option>
       </select></td>
     <td></td>
   </tr>
   <tr>
-    <td style="vertical-align:top;"><label for="partner_email_id">Partner Email ID*</label></td>
+    <td style="vertical-align:top;"><label for="partner_email_id">Organisation Email ID*</label></td>
     <td><span style="vertical-align:top;">
       <input type="text" placeholder"example@yourdomain.com"  name="partnerEmailId" id="partner_email_id" />
     </span></td>
@@ -60,7 +60,7 @@
       <td>&nbsp;</td>
     </tr>
 	    <tr>
-      <td><label for="website">website URL</label></td>
+      <td><label for="website">Website URL</label></td>
       <td><input type="text" name="website" id="website" /></td>
       <td>&nbsp;</td>
     </tr>
