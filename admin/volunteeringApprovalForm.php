@@ -21,14 +21,22 @@ mysql_select_db("$dbdatabase");
 
 
 //$volunteeringQuery= "select d.".$donor['displayName'].",d.".$donor['gender'].",d.".$donor['city'].",d.".$donor['orgName'].",p.".$project['title'].", v.* FROM donors d, volunteering v, projects p WHERE ((".$volunteer['status']."='p') AND (d.".$donor['id']."=v.".$volunteer['donorId'].") AND (p.".$volunteer['projectId']."=v.".$project['id']."))";
-$volunteeringQuery= "select d.".$donor['displayName'].",d.".$donor['gender'].",d.".$donor['city'].",d.".$donor['orgName'].",p.".$project['title'].", v.* FROM donors d, volunteering v, projects p WHERE ((".$volunteer['status']."='p') AND (d.".$donor['id']."=v.".$volunteer['donorId']."))";
-echo $volunteeringQuery;
+//$volunteeringQuery= "select * FROM volunteering v,donors d  WHERE v.".$volunteer['status']."='P' AND d.donor_id=v.donor_id";
+$volunteeringQuery="SELECT d.".$donor['displayName'].",d.".$donor['gender'].",d.".$donor['city'].",d.".$donor['orgName'].",p.".$project['title'].", v.* 
+FROM volunteering v, donors d, projects p
+WHERE v.".$volunteer['status']." =  'P'
+AND d.donor_id = v.donor_id
+AND v.project_id = p.project_id";
+
+
 $result=mysql_query($volunteeringQuery);
 $resultCount=mysql_num_rows($result);
 
 $volunteeringidArray;
+$count=0;
 ?>
 <?php
+//Get post data from session variable
 if(isset($_SESSION['POST_DATA']))
 {
 	$_POST=$_SESSION['POST_DATA'];
@@ -36,20 +44,22 @@ if(isset($_SESSION['POST_DATA']))
 }
 ?>
 
-
-<div align="center" id="volunteerDiv" style="display: block"><?php 
-if ($result>0)
+<div style="display:block; " align="center" id="regApprovalsDiv">
+<?php
+ 
+if ($resultCount>0)
 {
 	generateVolunteerTable();
 }
-else
+else 
 {
-	echo "You don't have any Registrations to Approve";
+	echo "You don't have any Volunteering Registrations to Approve.";
 }
-?></div>
+?>
+</div>
 <?php function generateVolunteerTable()
 {
-	global $donor,$volunteer,$project,$result;
+	global $donor,$volunteer,$project,$result,$count,$volunteeringidArray;
 	?>
 
 
@@ -76,22 +86,22 @@ else
 		<td>Location</td>
 		<td>Organisation</td>
 		<td>Project Name</td>
+		<td>Action</td>
 	</tr>
-	<?php $count=0;
-	$volunteeringidArray;
+	<?php 
 	while($row = mysql_fetch_array($result))
 	{
 		$calculatedTime="time";
 			
 		//$calculatedTime=calculateTime($row[$volunteer['fromDate']],$row[$volunteer['toDate']],$row[$volunteer['fromTime']],$row[$volunteer['toTime']]);
 		$volunteeringidArray[$count]=$row[$volunteer['id']];
-
+		
 		?>
 	<tr <?php if($count%2) echo "class=alt" ?>>
 		<td><?php echo ++$count; ?></td>
 		<td><?php echo "".$row[$donor['displayName']];?></td>
 		<td><?php echo "".$row[$donor['gender']];?></td>
-		<td><?php echo "".$row[$donor['place']];?></td>
+		<td><?php echo "".$row[$donor['city']];?></td>
 		<td><?php echo "".$row[$donor['orgName']];?></td>
 		<td><?php echo "".$row[$volunteer['fromDate']];?></td>
 		<td><?php echo "".$row[$volunteer['toDate']];?></td>
@@ -99,12 +109,13 @@ else
 		<td><?php echo "".$row[$volunteer['toTime']];?></td>
 
 		<td><?php echo "".$calculatedTime;?></td>
-
+		<td><?php echo "".$row[$volunteer['hours']];?></td>
 		<td><?php echo "".$row[$volunteer['area']];?></td>
-		<td><?php echo "".$row[$volunteer['activityDone']];?></td>
-		<td><?php echo "".$row[$volunteer['Location']];?></td>
-		<td><?php echo "".$row[$volunteer['org']];?></td>
-		<td><?php echo "".$row[$projects['title']];?></td>
+		<td><?php echo "".$row[$volunteer['activity']];?></td>
+		<td><?php echo "".$row[$volunteer['onOff']];?></td>
+		<td><?php echo "".$row['location'];?></td>
+		<td><?php echo "".$row['organisation'];?></td>
+		<td><?php echo "".$row['project_title'];?></td>
 
 
 		<!-- Hidden fields required to update set password , send email
@@ -156,14 +167,17 @@ if (isset($_POST['volunteeringApproval']))
 		//echo "".$radioID;
 		$value=$_POST[$radioID];
 		/*echo "<script>alert('$value')</script>";*/
+		//echo "<script>alert('mdflksdkfhskdhfkdsfhgkjdhfg');</script>";
 		if($value=="A")
 		{
+			
 			$approveCount++;
+		
 		}
 		updateVolunteeringStatus($volunteeringid,$value);
 		$count=$count-1;
 	}
-
+	echo "<script>window.location.href='adminHomescreen.php'</script>";
 	/*echo "<script>alert('$donor');</script>";*/
 
 
@@ -171,7 +185,11 @@ if (isset($_POST['volunteeringApproval']))
 
 function updateVolunteeringStatus($volunteeringID,$status)
 {
-	mysql_query("UPDATE users SET ".$volunteering['status']."='".$status."' WHERE ".$volunteering['id']."='".$volunteeringID."'");
+	global $volunteer;
+	
+	$query="UPDATE volunteering SET ".$volunteer['status']."='".$status."' WHERE ".$volunteer['id']."='".$volunteeringID."'";
+	mysql_query($query);
+	echo $query."             ";
 }
 
 ?>

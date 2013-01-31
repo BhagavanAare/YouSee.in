@@ -41,6 +41,7 @@ $useridArray;
 
 if(isset($_SESSION['POST_DATA']))
 {
+	//Get post data from session variable
 	$_POST=$_SESSION['POST_DATA'];
 	unset($_SESSION['POST_DATA']);
 }

@@ -8,6 +8,10 @@ session_start();
  $_SESSION['activeTab']="regApprovalsTab";
  }
  */
+if (isset($_POST))
+{
+	$_SESSION['POST_DATA']=$_POST;
+}
 if ($_SESSION['SESS_USER_TYPE']=="D")
 {
 	header("Location: myuc.php");
@@ -22,7 +26,7 @@ elseif ($_SESSION['SESS_USER_TYPE']=="A")
 		if($formname=="donorApproveRegistration" || $formname=="ngoApproveRegistration")
 		{
 			$_SESSION['activeTab']="regApprovalsTab";
-			$_SESSION['POST_DATA']=$_POST;
+			
 			/*if($_SESSION['SESS_USER_TYPE']=="A")
 				{
 				// Redirect to a different page in the current directory that was requested
