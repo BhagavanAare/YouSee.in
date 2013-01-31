@@ -51,17 +51,17 @@
 
   <tr>
     <td><label for="city">City</label></td>
-    <td><input type="text" name="city" id="city" /></td>
+    <td><input type="text" style="text-transform:capitalize" name="city" id="city" /></td>
     <td>&nbsp;</td>
   </tr>
   <tr>
     <td><label for="donor_state">State*</label></td>
-    <td><input type="text" name="state" id="donor_state" /></td>
+    <td><input type="text" style="text-transform:capitalize" name="state" id="donor_state" /></td>
     <td><div class="error" id="donor_state_errorloc" ></div></td>
   </tr>
     <tr>
       <td><label for="donor_country">Country*</label></td>
-      <td><input type="text" name="country" value="India" id="donor_country" /></td>
+      <td><input type="text" name="country" style="text-transform:capitalize" value="India" id="donor_country" /></td>
       <td>&nbsp;</td>
     </tr>
     <tr>

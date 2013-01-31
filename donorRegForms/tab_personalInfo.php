@@ -21,12 +21,12 @@
     <table   border="0">
       <tr>
         <td><label for="firstName">First name*</label></td>
-        <td><input name="fname" type="text" id="firstName" /></td>
+        <td><input name="fname" style="text-transform:capitalize" type="text" id="firstName" /></td>
         <td><div class="error" id="donor_fname_errorloc"></div></td>
       </tr>
       <tr>
         <td><label for="lastName">Last name*</label></td>
-        <td><input name="lname" type="text" id="lastName" /></td>
+        <td><input name="lname" style="text-transform:capitalize" type="text" id="lastName" /></td>
         <td><div class="error" id="donor_lname_errorloc"></div></td>
       </tr>
       <tr>
@@ -59,11 +59,11 @@
         <tr>
           <td><label for="occupation">Occupation</label>
           </td>
-          <td><input type="text" name="occupation" id="occupation" /></td>
+          <td><input style="text-transform:capitalize" type="text" name="occupation" id="occupation" /></td>
           <td>&nbsp;</td>
         </tr>
         <td><label for="donor_designation">Designation</label></td>
-        <td><input type="text" name="designation" id="donor_designation" /></td>
+        <td><input type="text" name="designation" style="text-transform:capitalize" id="donor_designation" /></td>
         <td>&nbsp;</td>
       </tr>
       <tr>

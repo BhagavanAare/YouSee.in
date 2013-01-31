@@ -12,14 +12,14 @@
     <td><label for="group_name">Org/Group name</label></td>
     <td>
       
-      <input type="text" name="orgName" id="group_name" />
+      <input type="text" style="text-transform:capitalize" name="orgName" id="group_name" />
     </td>
     <td>&nbsp;</td>
   </tr>
   <tr>
     <td><label for="group_type">Org/Group type</label></td>
     <td>
-      <select name="orgType" id="group_type">
+      <select name="orgType" style="text-transform:capitalize" id="group_type">
         <option value="company">Company</option >
         <option value="society">Cooperative Society</option>
         <option value="family">Family</option>

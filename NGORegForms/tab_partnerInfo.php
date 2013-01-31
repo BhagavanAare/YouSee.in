@@ -12,7 +12,7 @@
     <td><label for="partner_name">Partner name*</label></td>
     <td>
       
-      <input type="text" name="partnerName" id="partner_name" />
+      <input type="text" name="partnerName" style="text-transform:capitalize" id="partner_name" />
     </td>
     <td><div class="error" id="NGO_partnerName_errorloc"></td>
   </tr>
@@ -41,17 +41,17 @@
 
   <tr>
     <td><label for="city">HQ City</label></td>
-    <td><input type="text" name="hqcity" id="city" /></td>
+    <td><input type="text" name="hqcity" id="city" style="text-transform:capitalize"/></td>
     <td>&nbsp;</td>
   </tr>
   <tr>
     <td><label for="partnerstate">HQ State*</label></td>
-    <td><input type="text" name="hqstate" id="partnerstate" /></td>
+    <td><input type="text" name="hqstate" id="partnerstate" style="text-transform:capitalize"/></td>
     <td><div class="error" id="NGO_hqstate_errorloc"></td>
   </tr>
     <tr>
       <td><label for="partnercountry">HQ Country*</label></td>
-      <td><input type="text" name="hqcountry" id="partnercountry" value="India" /></td>
+      <td><input type="text" name="hqcountry" style="text-transform:capitalize" id="partnercountry" value="India" /></td>
       <td><div class="error" id="NGO_hqcountry_errorloc"></td>
     </tr>
     <tr>

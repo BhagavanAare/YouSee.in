@@ -14,11 +14,11 @@
       <label>Feature Permission <span class="link"><a href="javascript: void(0)"><font face=verdana,arial,helvetica size=2>[?]</font><span>For featuring your photo and Quote on YouSee website. We request you to select "YES"</span></a></span></label>
     </td>
     <td>    <label><input type="radio" name="featurePermission" value="Y" id="FeaturePermission_y" />
-        yes</label>
+        Yes</label>
 
       <label>
         <input type="radio" checked name="featurePermission" value="N" id="FeaturePermission_n" />
-        no </label>
+        No </label>
       
     </td>
     <td>&nbsp;</td>
