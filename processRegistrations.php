@@ -8,7 +8,7 @@
 <link rel="stylesheet" type="text/css" href="css/table.css">
 </head>
 
-<body>
+<body class="wrapper" style="background:white;">
 <?php include 'header_navbar.php';?>
 <?php
 $string; // Information of Registration  

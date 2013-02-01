@@ -5,35 +5,6 @@ $regPage="";
 <html lang="en">
 <head>
 
-<style type="text/css">
-span.link {
-	position: relative;
-}
-
-span.link a span {
-	display: none;
-}
-
-span.link a:hover {
-	font-size: 99%;
-	font-color: #000000;
-}
-
-span.link a:hover span {
-	display: block;
-	position: absolute;
-	margin-top: 10px;
-	margin-left: -10px;
-	width: 175px;
-	padding: 5px;
-	z-index: 100;
-	color: #000000;
-	background: #f0f0f0;
-	font: 12px "Arial", sans-serif;
-	text-align: left;
-	text-decoration: none;
-}
-</style>
 
 
 <meta charset="utf-8">
@@ -78,10 +49,15 @@ span.link a:hover span {
 
 <table>
 	<tr>
-		<td><input type="radio" onclick="showDonorReg();" name="userType"
-			value="donor" id="donorRadio" /> <label for="donorRadio">Donor/Volunteer</label>
-		<input type="radio" onClick="showNGOReg();" name="userType"
-			id="NGORadio" value="ngo" /> <label for="NGORadio">NGO</label></td>
+		<td><p><strong>Registration Form</strong> </p>
+		  <p>
+		    <input type="radio" onClick="showDonorReg();" name="userType"
+			value="donor" id="donorRadio" /> 
+		    <label for="donorRadio">Donor/Volunteer</label>
+	&nbsp &nbsp <input type="radio" onClick="showNGOReg();" name="userType"
+			id="NGORadio" value="ngo" /> 
+		    <label for="NGORadio">NGO</label>
+        </p></td>
 	</tr>
 </table>
 

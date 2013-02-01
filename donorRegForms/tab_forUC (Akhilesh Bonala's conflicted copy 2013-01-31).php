@@ -24,7 +24,7 @@
     <td>&nbsp;</td>
   </tr>
   <tr>
-    <td style="vertical-align:top;"><label for="quote">Quote <span class="link"><a href="javascript: void(0)"><font face=verdana,arial,helvetica size=2>[?]</font><span>Please show a brief (1-3 lines) quote about your thoughts on volunteer,donations and overall about UC (max 300 characters)</span></a></span></label></td>
+    <td style="vertical-align:top;"><label for="quote">Quote <span class="link"><a href="javascript: void(0)"><font face=verdana,arial,helvetica size=2>[?]</font><span>Please share a brief (1-3 lines) quote about your thoughts on volunteer,donations and overall about UC (max 300 characters)</span></a></span></label></td>
     <td><span style="vertical-align:top;">
       <textarea placeholder="Please share a brief (1-3 lines) quote about your thoughts on volunteer,donations and overall about UC" name="featureQuote" id="quote" cols="45" rows="5"></textarea>
     </span></td>

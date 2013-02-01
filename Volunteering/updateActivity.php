@@ -3,35 +3,9 @@
 <script src="../scripts/jquery.ui.core.js"></script>
 <script src="../scripts/jquery.ui.widget.js"></script>
 <script src="../scripts/datepicker.js"></script>
-<style type="text/css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
 
-span.link {
-    	position: relative;
-}
 
-    span.link a span {
-    	display: none;
-}
-
-span.link a:hover {
-    	font-size: 99%;
-    	font-color: #000000;
-}
-
-span.link a:hover span { 
-    display: block; 
-    	position: absolute; 
-    	margin-top: 10px; 
-    	margin-left: -10px; 
-	    width: 175px; padding: 5px; 
-    	z-index: 100; 
-    	color: #000000; 
-    	background: #f0f0f0; 
-    	font: 12px "Arial", sans-serif;
-    	text-align: left; 
-    	text-decoration: none;
-}
-</style>
 
 
 <script type="text/javascript">
@@ -127,7 +101,7 @@ function isProject()
 		$count= count($_POST['fromDate']);
 		echo $count;
 		
-		$donorid=234;
+		//$donorid=234;
 		
 		$type="Shram Dhaan";
 		$volunteerInsertAtts= "donor_id,from_date,to_date,from_time,to_time,hours,donation_type,area,activity_done,onsite_offsite,location,organisation,notes,project_id,approval_status";
