@@ -17,7 +17,7 @@
         data.addColumn('string', 'Label');
         data.addColumn('number', 'Value');
 
-<?php
+<?
 include("prod_conn.php");
 
 $query = "SELECT categoryid, categoryname, COUNT(bookid) books
@@ -51,9 +51,9 @@ $result2 = mysql_query($query2);
         $column2 = $column2 . $fetchcolumn2 ;
         }
 ?>
-        data.addRows(<?php echo $jsrow; ?>);
-        <?php echo $column1 . $column2; ?>
-        <?php echo $totalbooks; ?>
+        data.addRows(<? echo $jsrow; ?>);
+        <? echo $column1 . $column2; ?>
+        <? echo $totalbooks; ?>
 
         var chartDiv = document.getElementById('chartdiv');
         var options = {type: 'book'};

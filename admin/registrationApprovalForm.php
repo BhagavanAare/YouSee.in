@@ -29,11 +29,12 @@ $donorResultCount=mysql_num_rows($donorResult);
 $query= "SELECT * FROM users u,project_partners p  WHERE u.".$user['id']."=p.".$ngo['userid']." AND ".$user['regStatus']."='P' ";
 $ngoResult = mysql_query($query);
 $ngoResultCount=mysql_num_rows($ngoResult);
+//echo "<script>alert('".$ngoResultCount."')</script>";
 ?>
 
 <?php
 $password;
-$ngocount;
+$ngocount=0;
 $ngoUseridArray;
 $donorcount=0;
 $donorUseridArray;
@@ -48,28 +49,22 @@ if(isset($_SESSION['POST_DATA']))
 ?>
 <!--******************************** TABS *******************************-->
 
-<script language="javascript">
-var group="regApproval";
-createGroup(group);
-registerTab(group,"donor","donorDiv");
-registerTab(group,"ngo","ngoDiv");
-
-</script>
-
+<!-- 
 <div align="center" id="tab" class="tab">
 <ul class="tabContainer">
 	<div id="tabs" class="tab-box"><a
 		onClick="showTab('regApproval','donor');" class="tabLink activeLink"
-		id="donor">Donors <?php echo " (".$donorResultCount.")";?></a> <a
+		id="donor">Donors <?php // echo " (".$donorResultCount.")";?></a> <a
 		onClick="showTab('regApproval','ngo')" class="tabLink" id="ngo"> NGOs
-		<?php echo " (".$ngoResultCount.")";?> </a></div>
+		<?php //echo " (".$ngoResultCount.")";?> </a></div>
 </ul>
 </div>
+-->
 
-
-<div align="center" id="donorDiv" style="display: block"><?php 
+<div align="center" id="donorApprovalsDiv" style="display: block"><?php 
 if ($donorResultCount>0)
 {
+	
 	generateDonorTable();
 }
 elseif ($donorResultCount==0)
@@ -77,7 +72,8 @@ elseif ($donorResultCount==0)
 	echo "You don't have any Registrations to Approve";
 }
 ?></div>
-<div align="center" id="ngoDiv" style="display: none"><?php if ($ngoResultCount>0)
+<div align="center" id="ngoApprovalsDiv" style="display: none">
+<?php if ($ngoResultCount>0)
 {
 	generateNgoTable();
 }
@@ -96,20 +92,23 @@ function generateDonorTable()
 
 <form id="approveRequests" name="approveRequests" method="post"
 	action="redirect.php"><!-- a hidden field to identify which form is submitted.. field name is default for all forms value will be the name of form-->
-<input name="formname" type="hidden" value="donorApproveRegistration" />
-<table align="center" id="altColorTable" border="0">
-	<tr class="alt">
-		<td>S.No</td>
-		<td>Username</td>
-		<td>Gender</td>
-		<td>Donor Name</td>
-		<td>Date of Birth</td>
-		<td>Place</td>
-		<td>Organisation Name</td>
-		<td>Phone Number</td>
-		<td>Email ID</td>
-		<td>Action</td>
+<input name="formname" type="hidden" value="donorApproveRegistrationForm" />
+<table align="center"  id="table-search" border="0">
+	<thead>
+	<tr style="font-weight:bold;">
+		<th>S.No</th>
+		<th>Username</th>
+		<th>Gender</th>
+		<th>Donor Name</th>
+		<th>Date of Birth</th>
+		<th>Place</th>
+		<th>Organisation Name</th>
+		<th>Phone Number</th>
+		<th>Email ID</th>
+		<th>Action</th>
 	</tr>
+	</thead>
+	<tbody>
 	<?php
 	while($row = mysql_fetch_array($donorResult))
 	{
@@ -161,6 +160,7 @@ function generateDonorTable()
 	}
 
 	?>
+	</tbody>
 </table>
 <input name="donorApprovalRegistration" type="submit" value="submit" />
 </form>
@@ -180,30 +180,33 @@ function generateNgoTable()
 	?>
 <form id="approveRequests" name="approveRequests" method="post"
 	action="redirect.php"><!-- a hidden field to identify which form is submitted.. field name is default for all forms value will be the name of form-->
-<input name="formname" type="hidden" value="ngoApproveRegistration" />
+<input name="formname" type="hidden" value="ngoApproveRegistrationForm" />
 
-<table align="center" id="altColorTable" border="0">
-	<tr class="alt">
-		<td>S.No</td>
-		<td>Username</td>
-		<td>NGO</td>
-		<td>Address</td>
-		<td>Place</td>
-		<td>Email</td>
-		<td>Contact Name</td>
-		<td>Gender</td>
-		<td>Contact Number</td>
-		<td>Contact Email</td>
-		<td>Website</td>
-		<td>Action</td>
+<table align="center" id="table-search" border="0">
+	<thead>
+	<tr >
+		<th>S.No</th>
+		<th>Username</th>
+		<th>NGO</th>
+		<th>Address</th>
+		<th>Place</th>
+		<th>Email</th>
+		<th>Contact Name</th>
+		<th>Gender</th>
+		<th>Contact Number</th>
+		<th>Contact Email</th>
+		<th>Website</th>
+		<th>Action</th>
 	</tr>
+	</thead>
+	<tbody>
 	<?php
 
 	while($row = mysql_fetch_array($ngoResult))
 	{
 		$ngoUseridArray[$ngocount]=$row[$user['id']];
 		//echo "".$ngoUseridArray[$ngocount]." count= ".$ngocount; ?>
-	<tr <?php if($ngocount%2) echo "class=alt" ?>>
+	<tr>
 		<td><?php echo ++$ngocount; ?></td>
 		<td><?php echo "".$row[$user['username']];?></td>
 		<td><?php echo "".$row[$ngo['name']];?></td>
@@ -262,6 +265,7 @@ function generateNgoTable()
 	}
 
 	?>
+	</tbody>
 </table>
 <input name="ngoApprovalRegistration" type="submit" value="submit" /></form>
 
@@ -276,7 +280,7 @@ if (isset($_POST[$donorFormName]) || isset($_POST[$ngoFormName]))
 {
 	//echo " donor submitted <br />";
 	$counter=0;
-	$count;
+	
 	$radioText;
 	$displayName;
 	//echo "fjgsdfjbsjkdfhjkasdfjksdf";
@@ -297,6 +301,7 @@ if (isset($_POST[$donorFormName]) || isset($_POST[$ngoFormName]))
 	}
 	while($count)
 	{
+		
 		$email;
 		$userid=$useridArray[$counter];
 		//echo "     ".$useridArray[$counter];
@@ -382,10 +387,11 @@ function sendEmail($userID,$email,$username,$password)
 
 		$to = $email;
 		$mail->AddAddress($to);
-		$subject= "don't reply - Registration Confirmation ";
+		$subject= "Registration Confirmation ";
 
 
-		$body =  "Dear  " . $displayName . "<br>This is to acknowledge completion of registration on UC website.You can now visit yousee.in with the following <br/> Username : " . $username . " <br/> password : " . $password . "";
+		$body =  "Dear  " . $displayName . ",<br>This is to acknowledge completion of registration on UC website.You can now visit yousee.in with the following <br/> Username : " . $username . " <br/> password : " . $password . " <br><br><br>";
+		$body.="<br><br><br> From YouSee  (+91-8008-884422) <br /> <a href=\"www.yousee.in\">www.yousee.in</a>";
 
 		$mail->Subject = $subject;
 		$mail->Body = $body;
@@ -395,7 +401,7 @@ function sendEmail($userID,$email,$username,$password)
 		}
 		else
 		{
-			echo "<script>alert('Email Failed');</script>";
+			//echo "<script>alert('Email Failed');</script>";
 		}
 		//echo 'Registration Complete.';
 	}
@@ -422,17 +428,13 @@ function setPassword($userID) {
 
 if(isset($_POST['formname']))
 {
-	echo("neeeeeeeeeee");
-
-	echo $_POST['formname'];
-	echo "<script> alert('fasjd');</script>";
 	if($_POST['formname']==$donorFormName)
 	{
-		echo "<script> showTab('regApproval','ngo')</script>";
+		echo "<script> showTab('regApproval','donor')</script>";
 	}
 	else
 	{
-		echo "<script> showTab('regApproval','donor')</script>";
+		echo "<script> showTab('regApproval','ngo')</script>";
 	}
 }
 

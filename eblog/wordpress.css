@@ -1,0 +1,192 @@
+/*  
+*/
+
+.post h1 a, .post h2 a, .featurepost h2 a, .featurepost h1 a {
+	}
+
+a.posttitle {
+        font-size: 14pt;
+        font-weight: bold;
+        }
+
+a.more-link {
+        background: url(images/arrow-rt.gif) 100% 70% no-repeat;
+        padding-right:14px;
+        }
+
+a.more-link:hover, a.more-link:active {
+	color:#0c247c;
+	text-decoration:none;
+	background:#fff url(images/arrow-rt.gif) 100% 70% no-repeat;
+	}
+
+div.entry a {
+	text-decoration: none;
+	border-bottom:1px dotted #0c247c;
+	color: #0c247c;
+	}
+
+div.entry a:hover {
+	text-decoration: underline;
+	border-bottom:none;
+	}
+
+div.entry img {
+	text-decoration: underline;
+	border:0;
+	}
+	
+/* -------------------[ Comments ]------------------- */
+
+.commentform {
+	padding:10px;
+	margin:40px 40px 40px 40px;
+        text-align:left;
+	}
+
+.commentform textarea {
+	width:90%;
+	padding:5px;
+	}
+
+.commentform form label { 
+        display:block;
+        margin:5px 0 0 0;
+        font-size:100%;
+        font-weight:normal;
+        }
+
+.loginForm {
+	padding:10px;
+	margin:40px 40px 40px 40px;
+        text-align:left;
+	}
+
+.loginForm form label { 
+        display:block;
+        margin:5px 0 0 0;
+        font-size:100%;
+        font-weight:normal;
+        }
+
+.post {
+	margin: 30px 0 10px;
+	padding: 10 10 0 10;
+        text-align: left;
+	}
+
+.comment {
+	margin: 10px 10px 10px 10px;
+	padding: 0;
+        text-align: left;
+	}
+
+.entry {
+	padding: 0 10 0 10;
+	margin: 0;
+	}
+
+.comments {
+	padding: 10 10 0 10;
+	margin: 0;
+	}
+
+.commentsHeader {
+	font-size: 125%;
+	clear: both;
+	margin: 20px 0 10px;
+	padding: 0;
+        text-align: left;
+	}
+
+.commentHeader {
+	font-size: 100%;
+	clear: both;
+	margin: 20px 0 10px;
+	padding: 0;
+	font-weight:bold;
+	}
+
+.commentformHeader {
+	font-size: 120%;
+	clear: both;
+	margin: 20px 0 10px;
+	padding: 0;
+	font-weight:bold;
+	}
+
+.errorArea {
+	font-size: 100%;
+	clear: both;
+	margin: 10px 0 10px;
+	padding: 5px;
+	color: #ffffff;
+        background: #800000;
+	}
+
+.successStatus {
+	font-size: 100%;
+	clear: both;
+	margin: 10px 0 10px;
+	padding: 5px;
+	color: #ffffff;
+        background: #006400;
+        text-align: left;
+	}
+
+.commentContent {
+	font-size: 100%;
+	clear: both;
+	margin: 10px 10px 10px;
+	padding: 0;
+	}
+
+.postinfo {
+	font-size: 100%;
+	clear: both;
+	margin: 0 0 10px;
+	padding: 0;
+	}
+
+.blogNav {
+        font-size: 100%;
+        text-align: right;
+        padding: 0 10 0 0;
+        }
+
+.newCommentControls {
+        font-size: 100%;
+        font-weight: normal;
+        padding: 0 10 0 0;
+        }
+#renewcaptcha{
+             background-image: url(/eblog/images/refresh_button.gif);
+             border: 0px solid #FFFFFF;
+             height: 16px;
+             width:18px;
+             background-repeat: no-repeat;
+             cursor: pointer;
+             position:absolute;
+             margin:12px 0 0 5px;
+}
+#contentcaptcha{
+ width:180px;
+ height:50px;
+ 
+}
+
+#imagecaptcha{
+width:140px;
+float:left;
+padding:0;
+margin:0;
+text-align:center;
+}
+
+#buttonrefresh{
+width:40px;
+padding:5px;
+text-align:left;
+vertical-align:middle;}
+
+#textcaptcha{ clear:both;}

@@ -1,4 +1,4 @@
-<?php
+<?
 //query for testing output
 $query = "SELECT
          YEAR(FROM_DATE) year,
@@ -6,7 +6,7 @@ $query = "SELECT
          SUBSTR((MONTHNAME(FROM_DATE)),1,3) month_name,
          COUNT(DISTINCT DONOR_ID) volunteers
          FROM volunteering
-         GROUP BY year, month_number
+         GROUP BY month_number
          ORDER BY year, month_number ASC";
 
 //connect to database
@@ -46,8 +46,8 @@ $label= $month_label.$year_label;
 ?cht=lc
 &chtt=Active+Volunteers+by+Month
 &chxt=x,x,y
-&chd=<?php echo $data;?>
-&chxl=<?php echo $label;?>
+&chd=<? echo $data;?>
+&chxl=<? echo $label;?>
 &chs=350x250
 &chds=a
 &chco=99CC00

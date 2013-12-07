@@ -1,58 +1,66 @@
+<link rel="stylesheet" href="css/slideshow.css">
+
+	<script>
+		$(function(){
+			// Set starting slide to 1
+			var startSlide = 1;
+			// Get slide number if it exists
+			if (window.location.hash) {
+				startSlide = window.location.hash.replace('#','');
+			}
+			// Initialize Slides
+			$('#slides').slides({
+				generatePagination: true,
+				play: 10000,
+				pause: 5000,
+				hoverPause: true,
+				autoHeight:true,
+				// Get the starting slide
+				start: startSlide,
+				animationComplete: function(current){
+					// Set the slide number as a hash
+					window.location.hash = '#' + current;
+				}
+			});
+		});
+	</script>
+			<div id="slides">
+				<div class="slides_container">
+					<?php
+					include_once("prod_conn.php");
+					mysql_connect("$dbhost","$dbuser","$dbpass");
+					mysql_select_db("$dbdatabase");
+					
+					$query = "SELECT DONOR_IMG,  DISPLAYNAME, VILLAGE_TOWN, STATE, FEATURE_QUOTE
+					FROM donors WHERE feature_permission='Y' OR feature_permission='y' ORDER BY RAND() LIMIT 0,6";
+
+					$result = mysql_query($query);
+					//$num_rows = mysql_num_rows($result);
+					while ($row = mysql_fetch_assoc($result)) {
+							$img = $row['DONOR_IMG'];
+							if ($img == ""){
+								$img = "css/default_avatar.jpg";
+							}
+							$name = $row['DISPLAYNAME'];
+							$villagetown = $row['VILLAGE_TOWN'];
+							$state = $row['STATE'];
+							$location = $villagetown.", ".$state;
+							$quote = $row['FEATURE_QUOTE'];
+					?>
+						<div class="slide">
+	<h4 style='border-style:hidden; margin-top:-20px; margin-bottom:0px;'>Featured Donor/Volunteer</h4>
+	
+		<table width="400px" height="175px"><tr><td rowspan="2"><img height="100px" width="100px" src="<?php echo $img; ?>" alt="Image"/></td></tr>
+		<tr><td colspan="3"><q><?php echo $quote; ?></q></td></tr>
+		<tr><td colspan="3"><b>Name: </b><?php echo $name; ?></td></tr>
+		<tr><td colspan="3"><b>Location: </b><?php echo $location; ?></td></tr></table></tr>
+					</div>
 <?php
-//include("conn.php");
-include("prod_conn.php");
-mysql_connect("$dbhost","$dbuser","$dbpass");
-mysql_select_db("$dbdatabase");
-$range_result = mysql_query( "SELECT CONVERT(donor_id,SIGNED) donor_id FROM donors WHERE feature_permission='Y' OR feature_permission='y'");
-$random = Array();
+					}?>
+					
+				</div>
+				<a href="#" class="prev"><img src="images/arrow-prev.png" width="24" height="43" alt="Arrow Prev"></a>
+				<a href="#" class="next"><img src="images/arrow-next.png" width="24" height="43" alt="Arrow Next"></a>
+			</div>
+		
 
-while ($row = mysql_fetch_array($range_result, MYSQL_ASSOC)){
-	$random[] = $row['donor_id'];
-}
-
-$randomvaluekey = array_rand($random,1);
-$randomvalue = $random[$randomvaluekey];
-
-$query = "SELECT DONOR_IMG, TYPE_OF_DONOR, DISPLAYNAME, VILLAGE_TOWN, STATE, FEATURE_QUOTE, FIRST_DONATION, DONATION_CNT, PROJ_CNT, TOT_DONATION_MADE
-FROM donors
-JOIN (SELECT donor_id, DATE_FORMAT(MIN( PAYMENT_DATE ),'%d-%b-%Y') FIRST_DONATION, COUNT( * ) DONATION_CNT, COUNT( DISTINCT CERTIFICATE_ID ) PROJ_CNT, SUM( INSTRUMENT_AMOUNT ) TOT_DONATION_MADE
-FROM donors JOIN POSTPAY_CERTIFICATES USING ( donor_id ) JOIN PAYMENTS USING ( PAYMENT_ID ) WHERE POSTPAY_CERTIFICATES.donor_id = $randomvalue
-GROUP BY donor_id
-)DONATION_INFO
-USING ( donor_id )";
-
-$result = mysql_query($query);
-//$num_rows = mysql_num_rows($result);
-while ($row = mysql_fetch_assoc($result)) {
-		$img = $row['DONOR_IMG'];
-		if ($img == ""){
-			$img = "css/default_avatar.jpg";
-		}
-		$name = $row['DISPLAYNAME'];
-		$villagetown = $row['VILLAGE_TOWN'];
-		$state = $row['STATE'];
-		$location = $villagetown.", ".$state;
-		$quote = $row['FEATURE_QUOTE'];
-		$firstdonation = $row['FIRST_DONATION'];
-		$noofdonations = $row['DONATION_CNT'];
-		$noofprojects = $row['PROJ_CNT'];
-		$donor_type = $row['TYPE_OF_DONOR'];
-		}
-?>
-
-<!-- display project info in table -->
-<table style='width:450px; font-family:arial; font-size:12px;'>
-	<tr>
-		<td colspan="2" align="center" ><h4 style='border-style:hidden; margin-top:10px; margin-bottom:5px;'>Featured Donor/Volunteer</h4></td>
-	</tr>
-	<tr>
-		<td rowspan="3"><img height="100px" width="100px" src="<?php echo $img; ?>"/></td>
-		<td colspan="2"><b>Quote: </b><?php echo $quote; ?></td>
-	</tr>
-	<tr>
-		<td><b>Name: </b><?php echo $name; ?></td>
-	</tr>
-	<tr>
-		<td><b>Location: </b><?php echo $location; ?></td>
-	</tr>
-</table>

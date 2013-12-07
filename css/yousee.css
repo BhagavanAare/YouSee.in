@@ -1,0 +1,164 @@
+@charset "utf-8";
+/**
+ *
+ * Generic CSS for CakePHP
+ *
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link          http://cakephp.org CakePHP(tm) Project
+ * @package       app.webroot.css
+ * @since         CakePHP(tm)
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
+
+* {
+	margin:0;
+	padding:0;
+}
+
+body div#wrapper{
+	width:1020px; /* Change this to the width of the layout */
+	min-height:900px;
+	margin-right:auto;
+	margin-left:auto;
+}
+body div#content{
+	min-height:670px;
+}
+#header{
+	height:100px;
+	background-color:#FFFFFF;
+	background-image:url('../img/uc-header-background.gif');
+	background-repeat:no-repeat;
+	border-radius: 5px 5px 5px 5px;
+}
+#header #logo{
+	background:url('../img/uc-logo.jpg') no-repeat left;
+	width:100%;
+	height:100px;
+}
+#header h1 {
+	background:none  ;
+}
+#navbar, #footer{
+	margin-top:2px;
+	margin-bottom:2px;
+	line-height:35px;
+	background: #ccc;
+	background-repeat: repeat-x;
+	background-image: -moz-linear-gradient(top, #ccc, #fff);
+	background-image: -ms-linear-gradient(top, #ffcc00, #E6B800);
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#ffcc00), to(#E6B800));
+	background-image: -webkit-linear-gradient(top, #ffcc00, #E6B800);
+	background-image: -o-linear-gradient(top, #ffcc00, #E6B800);
+	background-image: linear-gradient(top, #ffcc00, #E6B800);
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	margin-bottom: 2px;
+	color: #404040;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+	-moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+#navbar ul li{
+	display: inline;
+	list-style-type: none;
+	margin: 0 7px;
+	font-size:13px;
+}
+
+#navbar ,#footer{
+	
+	font-weight:normal;
+	font-family: Helvetica;
+	font-size:12px;
+	text-decoration:none;
+	padding-left: 5px;
+	padding-right: 5px;
+	text-decoration:none;
+}
+#navbar a{
+ text-decoration:none;
+}
+#navbar a:hover,#footer a:hover{
+	font-weight:bold;
+	text-decoration:underline;
+	line-height:35px;
+}
+
+#navlist li.hidemyuc{
+	display:none;
+}
+
+
+#navlist #currentpage a{
+	display: inline;
+	list-style-type: none;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top:12px;
+	padding-bottom:11px;
+	background-color:#369;
+	color:white;
+	line-height:35px;
+}
+
+#navlist li:hover{
+	background:red;
+}
+
+
+#content{
+	border-radius: 5px 5px 0 0;
+	
+}
+#content ul{
+	margin: 0 0 1em 1em;
+}
+#content ul.fourdonations li{
+	  list-style: none outside none;
+	  margin:15px;
+}
+#content div.donationtype img{
+	float:left;
+	width:80px;
+	height:80px;
+	margin:15px;
+}
+
+#content div.donationtype span{
+	font-size:17px;
+	font-weight:bold;
+	line-height:75px;
+}
+p.description{
+	text-align:justify;
+}
+p.taxexemption{
+	font-weight:bold;
+}
+table.accountdetails td.label {
+	width:150px;
+	padding-right:25px;
+	text-align:right;
+}
+table.accountdetails td.value {
+	font-weight:bold;
+}
+table.featured{
+	width:100%;
+	
+}
+table.featured td{
+	width:50%;
+}

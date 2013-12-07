@@ -1,0 +1,78 @@
+.Clothes {
+background-image: url('../images/Clothes.png');
+background-position : left;
+background-size : 50px 50px;
+background-repeat : no-repeat;
+}
+.Paper {
+background-image: url('../images/Paper.png');
+background-position : left;
+background-size : 50px 50px;
+background-repeat : no-repeat;
+}
+.Electrical {
+background-image: url('../images/Electronics.png');
+background-position : left;
+background-size : 50px 50px;
+background-repeat : no-repeat;
+}
+.Glass {
+background-image: url('../images/Glass.png');
+background-position : left;
+background-size : 50px 50px;
+background-repeat : no-repeat;
+}
+.Metal {
+background-image: url('../images/Metal.png');
+background-position : left;
+background-size : 50px 50px;
+background-repeat : no-repeat;
+}
+.Miscellaneous {
+background-image: url('../images/Miscellaneous Waste.png');
+background-position : left;
+background-size : 50px 50px;
+background-repeat : no-repeat;
+}
+.Plastic {
+background-image: url('../images/Plastic.png');
+background-position : left;
+background-size : 50px 50px;
+background-repeat : no-repeat;
+}
+.Shoes {
+background-image: url('../images/Shoes.png');
+background-position : left;
+background-size : 50px 50px;
+background-repeat : no-repeat;
+}
+.Compost {
+background-image: url('../images/Compost.png');
+background-position : left;
+background-size : 50px 50px;
+background-repeat : no-repeat;
+}
+.Stationery {
+background-image: url('../images/Stationary.png');
+background-position : left;
+background-size : 50px 50px;
+background-repeat : no-repeat;
+}
+.Food{
+background-image: url('../images/Food.png');
+background-position : left;
+background-size : 50px 50px;
+background-repeat : no-repeat;
+}
+.Furniture {
+background-image: url('../images/Furniture.png');
+background-position : left;
+background-size : 50px 50px;
+background-repeat : no-repeat;
+}
+.Books {
+background-image: url('../images/Books.png');
+background-position : left;
+background-size : 50px 50px;
+background-repeat : no-repeat;
+}

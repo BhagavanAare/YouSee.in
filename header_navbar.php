@@ -1,32 +1,9 @@
 <!--header-->
-<div id="header">
 
-<!-- UC logo -->
-<img style="float:left;" src="images/uc-logo.jpg">
-
-<!-- login and register -->
-<div style="float:right;">
-<?php 
-if(!isset($_SESSION['SESS_USER_ID'])){
-include 'login_form.php';
-}
-else{
-include 'display_donor_info.php';
-echo "<td>&nbsp;</td>";
-echo "<a href=\"logout.php\">Logout</a>";
-}
-?>
-</div>
-
-</div>
-
-
+<div id='header' style="padding:0px;margin:0px;">
+<a href="http://www.yousee.in"><img style='position:absolute;padding:5px 10px 5px 10px;float:left;height:65px;z-index:10001;' src='http://www.yousee.in/images/uc-logo.png'></a>
 <!--navbar-->
-<?php 
-if(!isset($_SESSION['SESS_USER_ID']) || $_SESSION['SESS_USER_TYPE']=="A"){
-include 'navbar.php';
-}
-else{
-include 'navbar_myuc.php';
-}
-?>
+<?php if(!isset($_SESSION[ 'SESS_USER_ID'])){ include 'navbar.php'; } else{ include
+'navbar_myuc.php'; } ?>
+
+</div>

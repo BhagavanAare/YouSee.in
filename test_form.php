@@ -4,12 +4,25 @@ mysql_connect("$dbhost","$dbuser","$dbpass");
 mysql_select_db("$dbdatabase");
 ?>
 
+
 <html>
 <head>
 <title>UC Volunteering Activities</title>
 </head>
 <body>
+<div>
+<table border=1>
+<?php
+//code of selection of equipment
+$query4 = "SELECT * FROM users";
 
+$result4 = mysql_query($query4);
+while($row4 = mysql_fetch_array($result4)){
+  echo "<tr><td>".$row4['username']."</td><td>".$row4['password']."</td></tr>";
+}
+?>
+</table>
+<div>
 <?php
 if (isset($_REQUEST['Submit'])) {
 # THIS CODE TELL MYSQL TO INSERT THE DATA FROM THE FORM INTO YOUR MYSQL TABLE

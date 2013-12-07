@@ -1,4 +1,4 @@
-<?php
+<?
 //query for selecting all Children Homes at Hyderabad
 $city = "Hyderabad";
 $query = "SELECT * FROM places
@@ -32,7 +32,7 @@ $latlng = $latitude . ", " . $longitude;
 	if(!domNode.isMapLoaded){
 	var data = google.visualization.arrayToDataTable([
         ['Lat', 'Lon', 'Name'],
-        <?php echo $datastring; ?> 
+        <? echo $datastring; ?> 
         ]);
         var map = new google.visualization.Map(domNode);
         map.draw(data, {showTip: true});
@@ -44,7 +44,7 @@ $latlng = $latitude . ", " . $longitude;
 
     <div id="cont-1-map" style="width: 900px; height: 500px"></div>
     <br>
-<?php 
+<? 
 //dispaly as a table the map pointers data
 include 'display_table.php';
 ?>

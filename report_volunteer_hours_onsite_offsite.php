@@ -51,9 +51,13 @@ $label= $value_label.$category_label;
 &chxt=x,x
 &chd=<?php echo $data;?>
 &chxl=<?php echo $label;?>
-&chs=350x250
+&chs=150x100
 &chds=a
 &chbh=a
 &chco=FFFFFF
 &chem=y;s=cm_repeat;ds=1;dp=all;d=glyphish_clock,0,10,V,16,6699FF,000000,2,hb
 ">
+<?php
+//Version Track
+//1 - 07May13 - Vivek - change of chart width.
+?>

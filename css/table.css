@@ -21,8 +21,35 @@ text-shadow:#CCC;
 background-color:#CCCFFF;
 
 }
-#altColorTable tr.alt td 
+#altColorTable tr:nth-child(even) {
+    background-color: #EEDDF0;
+}
+
+
+/*Sub Tables*/
+
+
+#altColorSubTable
 {
 
-background-color:#CCCFFF;
+font-size:12px;
+//border-collapse:collapse;
+
+}
+#altColorSubTable td, #altColorSubTable th 
+{
+//font-size:1em;
+border:hidden;
+//padding:3px 7px 2px 7px;
+text-shadow:#CCC;
+}
+#altColorSubTable th 
+{
+
+background-color:#E2A9F3;
+
+}
+
+#altColorSubTable tr:nth-child(even) {
+    background-color: #E2E4F2;
 }

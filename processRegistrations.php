@@ -8,11 +8,16 @@
 <link rel="stylesheet" type="text/css" href="css/table.css">
 </head>
 
-<body class="wrapper" style="background:white;">
+<body class="wrapper" style="width: 1000px;background:white; margin-right: auto; margin-left: auto; margin-top: -8px;">
 <?php include 'header_navbar.php';?>
 <?php
 $string; // Information of Registration  
-
+session_start();
+if(isset($_SESSION['POST']))
+{	
+	$_POST=$_SESSION['POST'];
+	unset($_SESSION['POST']);
+}
 
 include_once("prod_conn.php");
 $con= mysql_connect("$dbhost","$dbuser","$dbpass"); 	//establishes database connection
@@ -25,46 +30,128 @@ mysql_select_db("$dbdatabase");
 
 
 
-$registrationType = $_POST['formName']; // formName contains a value
 $defaultUsername;
 $userid;
-
-if($registrationType=="donorReg")
+$mailText;
+if(isset($_POST['donorSubmit']))
 {
-
 	//echo "donor";
-	if($_POST['preferredEmail']=="P")
-	$defaultUsername=$_POST['personalEmail'];
-	elseif($_POST['preferredEmail']=="O")
-	$defaultUsername=$_POST['officialEmail'];
-
+	$defaultUsername=$_POST['preferredEmail'];
+	$mailText="This is to acknowledge that we have received information submitted by you as shown below and we thank you for Registering at <a href=\"www.yousee.in\">YouSee</a>. <br /><br />You may reply to this email or call +91-8008-884422 for any futher information you may like to have from <a href=\"www.yousee.in\">YouSee</a>";
 	registerDonor();
+	$username=$defaultUsername;
+$password=md5($_POST['password']);
+$query="SELECT * FROM users WHERE username='$username' AND password='$password'";
 
+$result=mysql_query($query);
+//Check whether the query was successful or not
+if ($result) {
+	if(mysql_num_rows($result) == 1) {
+		//Login Successful
+		session_regenerate_id();
+		$user = mysql_fetch_assoc($result);
+		$_SESSION['SESS_USER_ID'] = $user['user_id'];
+		$_SESSION['SESS_USER_TYPE'] = $user['user_type_id'];
+		$_SESSION['SESS_USERNAME'] = $user['username'];
+		if($_SESSION['SESS_USER_TYPE']=='N' || $_SESSION['SESS_USER_TYPE']=='A'){
+			header('Location:login_failed.php');
+			}
+		//if($result['regStatus']=="A")
+		// this section generates query for donor info
+$usersquery = "SELECT *
+          FROM users
+          WHERE user_id=".$_SESSION['SESS_USER_ID'];
+$usersresult=mysql_query($usersquery);		 
+		$row=mysql_fetch_array($usersresult);
+$replace_date="UPDATE users SET past_login_time='$row[present_login_time]', past_login_date='$row[present_login_date]'
+			WHERE user_id='$_SESSION[SESS_USER_ID]'";
+$replace = mysql_query($replace_date);
+
+date_default_timezone_set('Asia/Kolkata');
+$date=date('y-m-d'); 
+$time=date('H:i:s');
+			$update_users = "UPDATE users SET present_login_time='$time', present_login_date='$date'
+			WHERE user_id='$_SESSION[SESS_USER_ID]'";
+			$update = mysql_query($update_users);	
+	if ($_SESSION['SESS_USER_TYPE'] == "D")
+	{
+	
+		$query = "SELECT displayname, donor_id
+          				FROM donors
+          				WHERE user_id=".$_SESSION['SESS_USER_ID'];
+		$result=mysql_query($query);
+		if ($result)
+		{
+			if(mysql_num_rows($result) == 1)
+			{
+				$donor = mysql_fetch_assoc($result);
+				$_SESSION['SESS_DONOR_ID'] = $donor['donor_id'];
+				$_SESSION['SESS_DISPLAYNAME'] = $donor['displayname'];
+							session_write_close();
+								header('Location: myucSummary.php?gawt=1');				
+			}
+					
+		}
+	}
+				exit();
+	}
+	else 
+	{
+		//Login failed
+		header("location: login_failed.php");
+		exit();
+	}
+}else {
+	die("Query failed");
+}
+
+echo "Your information is submitted. You will recieve a confirmation email from YouSee.";
 
 }
-elseif($registrationType="NGOReg")
+
+else if(isset($_POST['ngoSubmit']))
 {
 	//echo "ngo";
 	$defaultUsername=$_POST['partnerEmailId'];
+	$mailText="This is to acknowldge that we have received information submitted by you as shown below. UC team will contact you soon to gather necessary information and documents to complete the activation of your Organization's account. You may reply to this email or call +91-8008-884422 for any futher information you may like to have from <a href=\"www.yousee.in\">YouSee</a>";
 	registerNGO();
+?>
+<!-- Google Code for NGO Registration Conversion Page -->
+<script type="text/javascript">
+/* <![CDATA[ */
+var google_conversion_id = 1017317607;
+var google_conversion_language = "en";
+var google_conversion_format = "1";
+var google_conversion_color = "ffffff";
+var google_conversion_label = "7MVnCNnN0AQQ55GM5QM";
+var google_conversion_value = 0;
+/* ]]> */
+</script>
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+</script>
+<noscript>
+<div style="display:inline;">
+<img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/1017317607/?value=0&amp;label=7MVnCNnN0AQQ55GM5QM&amp;guid=ON&amp;script=0"/>
+</div>
+</noscript>
+<?php
 }
 
-echo "Your information is submitted, You will recieve a confirmation email from YouSee..";
+echo "Your information is submitted. You will recieve a confirmation email from YouSee.";
 function sendEmail($email,$displayName)
 {
-	global $string;
-	include_once ("Email/class.phpmailer.php");
-	include 'Email/config.php';
+	global $string, $mailText;
+	require_once ("Email/class.phpmailer.php");
+	require_once 'Email/config.php';
 	try{
 		$to = $email;
 		$mail->AddAddress($to);
-		$mail->AddBCC("gunaranjan@yousee.in");
+		$mail->AddBCC("contact@yousee.in");
 		$subject= "Acknowledgement-Information Submission";
 
-		$body =  "Dear  " .$displayName. "<br><br>
-
-			This is to acknowldge that we have received information submitted by you as shown below.We 					shall reply to you again on the completion of registration.You may reply to this email or call +91-8008-884422 for any futher information you may like to have from UC (www.yousee.in).";
+		$body =  "Dear  " .$displayName. ",<br><br>".$mailText;
 		$body.=$string;
+		$body.="<br><br><br> From YouSee  (+91-8008-884422) <br /> <a href=\"www.yousee.in\">www.yousee.in</a>";
 		$mail->Subject = $subject;
 		$mail->Body = $body;
 		if($mail->Send())
@@ -100,10 +187,10 @@ function registerDonor()
 	include("tableObjects/userTable.php");
 
 
-
-	$userValues="'D','$defaultUsername','defaultPassword','P'";
+	$password=md5($_POST['password']);
+	$userValues="'D','$defaultUsername','$password','A'";
 	$insertUserQuery="INSERT INTO users($userInsertAtts) VALUES($userValues)";
-
+	//echo $insertUserQuery;
 	if (!mysql_query($insertUserQuery))
 	{
 		//die('Error: ' . mysql_error());
@@ -115,20 +202,37 @@ function registerDonor()
 
 
 	$userid = mysql_insert_id();
+	
 	$imagePath="images/".$userid;
 	$imagePath="image/";
 	//header('Content-Type:image/jpeg');
 	//file_put_contents('umages/.jpg');
 	//include ("upload/uploadfile.php");
-	$defaultDisplayName=$_POST['fname']." ".$_POST['lname'];
-
-
-	$donorValues="'".$_POST['type']."','".$_POST['fname']."','".$_POST['lname']."','".$_POST['dob']."','".$_POST['gender']."','".$_POST['address']."','".$_POST['city']."','".$_POST['state']."','".$_POST['country']."','".$_POST['pincode']."','".$_POST['occupation']."','".$_POST['designation']."','".$_POST['phno']."','".$_POST['personalEmail']."','".$_POST['officialEmail']."','".$_POST['preferredEmail']."','".$_POST['pan']."','".$_POST['featurePermission']."','".$_POST['featureQuote']."','".$defaultDisplayName."','".$imagePath."','".$_POST['orgName']."','".$_POST['orgType']."','".$_POST['orgDesc']."','".$userid."'";
+	
+	/* Capitalize first letter of a word in Strings*/
+	$_POST['fname']=ucwords($_POST['fname']);
+	$_POST['lname']=ucwords($_POST['lname']);
+	$_POST['city']=ucwords($_POST['city']);
+	$_POST['state']=ucwords($_POST['state']);
+	$_POST['country']=ucwords($_POST['country']);
+	$_POST['pincode']=mb_strtoupper($_POST['pincode']);
+	$_POST['occupation']=ucwords($_POST['occupation']);
+	$_POST['designation']=ucwords($_POST['designation']);
+	$_POST['pan']=mb_strtoupper($_POST['pan']);
+	$_POST['orgName']=ucwords($_POST['orgName']);
+	
+	$defaultDisplayName=$_POST['fname']." ".$_POST['lname']; //Sets Display Name
+	$_POST['featurePermission']="N";
+	if(isset($_POST['dob']))
+	{
+		$_POST['dob']=date_format(new DateTime($_POST['dob']),'Y-m-d');
+	}
+	$donorValues="'".$_POST['type']."','".$_POST['fname']."','".$_POST['lname']."','".$_POST['dob']."','".$_POST['gender']."','".$_POST['address']."','".$_POST['city']."','".$_POST['state']."','".$_POST['country']."','".$_POST['pincode']."','".$_POST['occupation']."','".$_POST['designation']."','".$_POST['phno']."','".$_POST['alternateEmail']."','".$_POST['preferredEmail']."','".$_POST['pan']."','".$_POST['featurePermission']."','".$_POST['featureQuote']."','".$defaultDisplayName."','".$imagePath."','".$_POST['orgName']."','".$_POST['orgType']."','".$_POST['orgDesc']."','".$userid."'";
 
 
 
 	$insertDonorQuery="INSERT INTO donors($donorInsertAtts) VALUES($donorValues)";
-
+	//echo $insertDonorQuery;
 	buildDonorTable();
 
 	//echo "".$donorValues;
@@ -143,6 +247,8 @@ function registerDonor()
 	sendEmail($defaultUsername,$defaultDisplayName);
 }
 
+
+//---------------------------------------------------------------------------
 function registerNGO()
 {
 	global $defaultUsername,$userid,$defaultDisplayName;
@@ -160,7 +266,7 @@ function registerNGO()
 
 
 
-	$userValues="'D','".$defaultUsername."','defaultPassword','P'";
+	$userValues="'N','".$defaultUsername."','defaultPassword','P'";
 	$insertUserQuery="INSERT INTO users($userInsertAtts) VALUES($userValues)";
 	if (!mysql_query($insertUserQuery))
 	{
@@ -169,8 +275,17 @@ function registerNGO()
 		exit();
 			
 	}
+	
+	$_POST['partnerName']=ucwords($_POST['partnerName']);
+	$_POST['hqcity']=ucwords($_POST['hqcity']);
+	$_POST['hqstate']=ucwords($_POST['hqstate']);
+	$_POST['hqcountry']=ucwords($_POST['hqcountry']);
+	$_POST['fname']=ucwords($_POST['fname']);
+	$_POST['lname']=ucwords($_POST['lname']);
+	$_POST['designation']=ucwords($_POST['designation']);
 
 	$defaultDisplayName=$_POST['fname']." ".$_POST['lname'];
+	$_POST['hq_town_city']=ucwords($_POST['partnerName']);
 
 	$userid = mysql_insert_id();
 
@@ -210,7 +325,7 @@ $string  = "<div style=\"position: absolute; bottom: 0; width: 100%\">
     <td> ". $_POST['lname']." </td>
   </tr>
   <tr style=\"background-color:#CCCFFF;\">
-    <td>Registration For</td>
+    <td>Registered As</td>
     <td>  ".$_POST['type']." </td>
   </tr>
   <tr >
@@ -222,12 +337,16 @@ $string  = "<div style=\"position: absolute; bottom: 0; width: 100%\">
     <td>  ".$_POST['phno'] ."</td>
   </tr>
   <tr >
-    <td>Personal Email ID</td>
-    <td>  ".$_POST['personalEmail']." </td>
+    <td>Email/Username</td>
+    <td>  ".$_POST['preferredEmail']." </td>
   </tr>
   <tr style=\"background-color:#CCCFFF;\">
-    <td>Official Email ID</td>
-    <td> ".$_POST['officialEmail']." </td>
+    <td>Alternate Email ID</td>
+    <td> ".$_POST['alternateEmail']." </td>
+  </tr>
+  <tr >
+    <td>City</td>
+    <td> ".$_POST['city']." </td>
   </tr>
   <tr >
     <td>State</td>
@@ -276,27 +395,27 @@ $string  = "<div style=\"position: absolute; bottom: 0; width: 100%\">
     <td>  ".$_POST['partnerEmailId']." </td>
   </tr>
   <tr style=\"background-color:#CCCFFF;\">
-    <td>HQ City</td>
+    <td>City</td>
     <td>  ".$_POST['hqcity'] ."</td>
   </tr>
   <tr >
-    <td>HQ State</td>
+    <td>State</td>
     <td>  ".$_POST['hqstate']." </td>
   </tr>
   <tr style=\"background-color:#CCCFFF;\">
-    <td>HQ Country</td>
+    <td>Country</td>
     <td> ".$_POST['hqcountry']." </td>
   </tr>
   <tr >
-    <td>Contact Person First Name</td>
+    <td>First Name</td>
     <td> ".$_POST['fname']." </td>
   </tr>
   <tr style=\"background-color:#CCCFFF;\">
-    <td>Contact Person Last Name</td>
+    <td>Last Name</td>
     <td> ".$_POST['lname']." </td>
   </tr>
   <tr >
-    <td>Contact Person Phone Number</td>
+    <td>Phone Number</td>
     <td> ".$_POST['phno']." </td>
   </tr >
 
@@ -305,10 +424,30 @@ $string  = "<div style=\"position: absolute; bottom: 0; width: 100%\">
 
 } 
 ?>
-
+ 
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 <br />
 <br />
 
 <?php include 'footer.php' ; ?>
 </body>
 </html>
+<?php
+/*
+Version Track
+1 - 17May13 - Vivek - Include statements changed to require statements in sendmail(). 
+2 - 02Jun13 - Vivek - Password Encryption.
+*/
+?>

@@ -5,7 +5,8 @@ $query = "SELECT DATE_FORMAT(MIN(from_date),'%d-%b-%Y') FROMDATE,
                  DATE_FORMAT(MAX(to_date),'%d-%b-%Y') TODATE,
                  SUM(hours) TOTALHOURS
           FROM volunteering
-          WHERE donor_id=".$_SESSION['SESS_DONOR_ID'];
+          WHERE DONOR_ID=".$_SESSION['SESS_DONOR_ID']." 
+		  AND approval_status='A'";
 
 mysql_connect("$dbhost","$dbuser","$dbpass");
 mysql_select_db("$dbdatabase");

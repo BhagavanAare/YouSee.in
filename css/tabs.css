@@ -1,0 +1,130 @@
+ul.tree {
+    padding: 12px 10px 0 20px;
+    width: 150px;
+
+    margin-top: 0px;
+    font-family: "FutConM", Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    list-style-image: url('images/listOpened.png');
+}
+
+li.tree {
+    position: relative;
+    margin-left: -15px;
+    list-style: none;
+    color: #222;
+}
+
+li.file {
+    margin-left: -1px !important;
+}
+
+.file a
+{
+    color: white;
+    padding-left: 21px;
+    text-decoration: none;
+    display: block;
+}
+.tabLink
+{
+    color: grey !important;
+    //text-decoration:none !important;
+
+}
+a.file:link
+{
+
+    color: grey !important;
+    text-decoration:none !important;
+}
+
+
+a.file:visited
+{
+    color: grey !important;
+    text-decoration:none !important;
+}
+a.file:hover
+{
+    background-color: lightgrey !important;
+    color: grey !important;
+    text-decoration:none !important;
+}
+
+
+a.file:active
+{
+    color: black !important;
+    
+}
+
+a.activeLink 
+{
+	font-weight:bold !important;
+}
+.tree li input {
+
+    position: absolute;
+    left: 0;
+    margin-left: 0;
+    opacity: 0;
+    z-index: 2;
+    cursor: pointer;
+    height: 1em;
+    width: 1em;
+    top: 0;
+}
+
+li input+ul {
+
+
+    background: url(../images/toggle-small-expand.png) 40px 0 no-repeat;
+    margin: -0.999em 0 0 -44px; /* 15px */
+    height: 1em;
+
+}
+
+li input+ul>li {
+    display: none;
+    margin-left: -14px !important;
+    padding-left: 1px;
+}
+
+li label {
+
+    cursor: pointer;
+    display: block;
+    padding-left: 10px;
+}
+
+li label.menu_first:hover {
+    background-color: lightgrey ;
+}
+
+li label.menu_first:active {
+    background-color: lightgrey ;
+}
+
+li label.menu_first:visited {
+    background-color: #F63;
+}
+/*      dsfgasdfjksdf*/
+li input:checked+ul {
+    background: url(../images/toggle-small.png) 40px 5px no-repeat;
+    margin: -1.50em 0 0 -44px; /* 20px */
+    padding: 1.563em 0 0 80px;
+    height: auto;
+}
+
+
+li input:checked+ul>li {
+    display: block;
+    cursor: pointer;
+    margin: 0 0 0.125em; /* 2px */
+}
+
+li input:checked+ul>li:last-child {
+    margin: 0 0 0.063em; /* 1px */
+}
+

@@ -1,0 +1,328 @@
+/* Donors Slide */
+
+#container {
+	width:500px;
+	padding:10px;
+	margin-left:500px;
+	margin-bottom:250px;
+	top:-20px;
+	position:relative;
+	z-index:0;
+	font:normal 80%/1.5 Helvetica, Arial, sans-serif;
+	color:black;
+	text-shadow:0 1px 0 rgba(255,255,255,.8);
+	-webkit-font-smoothing: subpixel-antialiased;
+
+}
+#slides ol,ul { list-style:none; }
+/*
+	Slideshow style
+*/
+
+#slides {
+		overflow:hidden;
+	width:500px;
+	height:550px;
+	position:absolute;
+	top:15px;
+	left:4px;
+	z-index:100;
+}
+
+/*
+	Slides container
+	Important:
+	Set the width of your slides container
+	If height not specified height will be set by the slide content
+	Set to display none, prevents content flash
+*/
+#slides img{border:none;}
+.slides_container {
+	padding-left:20px;
+	width:500px;
+	height:250px;
+	overflow:hidden;
+	position:relative;
+	display:none;
+
+}
+
+/*
+	Each slide
+	Important:
+	Set the width of your slides
+	Offeset for the 20px of padding
+	If height not specified height will be set by the slide content
+	Set to display block
+*/
+
+#slides .slide {
+	padding:20px;
+	width:400px;
+	height:230px;
+	display:block;
+		border:3px solid #003365;
+	border-radius:5px;
+}
+
+/*
+	Next/prev buttons
+*/
+#slides .next,#slides .prev {
+	position:absolute;
+	top:80px;
+	left:-7px;
+	width:24px;
+	height:43px;
+	display:block;
+	z-index:101;
+}
+
+#slides .next {
+	left:459px;
+}
+/*
+	Pagination
+*/
+
+#slides .pagination {
+	top:-70px;
+	left:90px;
+	position:relative;
+	z-index:10000;
+	float:right;
+	width:300px;
+}
+
+#slides .pagination li {
+	position:relative;
+	z-index:105;
+	margin:0 1px;
+	
+	float:left;
+
+
+}
+
+#slides .pagination li a {
+	font-weight:bold;
+	background:#ddd;
+	border:5px solid transparent;
+	border-radius:90px;
+	font-size:13px;
+	position:relative;
+	top:-5px;
+	left:4px;
+	text-decoration:none;
+
+}
+#slides .pagination li.current{
+	
+
+}
+#slides .pagination li.current a {
+	background:#666;
+		box-shadow:1px 1px 1px #aaa;
+			color:#fff;
+			font-weight:bold;
+}
+
+/*
+	Type and anchors
+*/
+
+#slides a:link,a:visited {
+	text-decoration:none;
+}
+
+#slides a:hover,a:active {
+	color:#599100;
+	text-decoration:none;
+}
+
+#slides h1 {
+	font-size:2em;
+}
+
+#slides p {
+	font-size:1.3em;
+}
+
+#slides .link {
+	float:middle;
+	position:relative;
+	font-size:16px;
+	margin:10px 0 0 20px;
+	background:
+	font-weight:800;
+}
+#slides .link a.current{
+	margin-left:30px;
+}
+
+
+/*
+******************
+******************
+******************
+				Projects Slide 
+ *****************
+ *******************
+ **********************/
+
+#container_p {
+	width:500px;
+	padding:10px;
+	margin-bottom:300px;
+	top:-20px;
+	float:left;
+	position:relative;
+	z-index:0;
+	font:normal 80%/1.5 Helvetica, Arial, sans-serif;
+	color:black;
+	text-shadow:0 1px 0 rgba(255,255,255,.8);
+	-webkit-font-smoothing: subpixel-antialiased;
+
+}
+#slides_p ol,ul { list-style:none; }
+/*
+	Slideshow style
+*/
+
+#slides_p{
+		overflow:hidden;
+	width:500px;
+	height:550px;
+	position:absolute;
+	top:15px;
+	left:4px;
+	z-index:100;
+}
+
+/*
+	Slides container
+	Important:
+	Set the width of your slides container
+	If height not specified height will be set by the slide content
+	Set to display none, prevents content flash
+*/
+#slides_p img{border:none;}
+#slides_p .slides_container {
+	padding-left:20px;
+	width:500px;
+	height:300px;
+	overflow:hidden;
+	position:relative;
+	display:none;
+
+}
+
+/*
+	Each slide
+	Important:
+	Set the width of your slides
+	Offeset for the 20px of padding
+	If height not specified height will be set by the slide content
+	Set to display block
+*/
+
+#slides_p .slide {
+	padding:20px;
+	width:400px;
+	height:320px;
+	display:block;
+	border:3px solid #003365;
+	border-radius:5px;
+}
+
+/*
+	Next/prev buttons
+*/
+#slides_p .next,#slides_p .prev {
+	position:absolute;
+	top:80px;
+	left:-7px;
+	width:24px;
+	height:43px;
+	display:block;
+	z-index:101;
+}
+
+#slides_p .next {
+	left:459px;
+}
+/*
+	Pagination
+*/
+
+#slides_p .pagination {
+	top:0px;
+	left:250px;
+	position:absolute;
+	z-index:10000;
+	float:right;
+	width:300px;
+}
+
+#slides_p .pagination li {
+	position:relative;
+	z-index:105;
+	margin:0 1px;
+	
+	float:left;
+
+
+}
+
+#slides_p .pagination li a {
+	font-weight:bold;
+	background:#ddd;
+	border:5px solid transparent;
+	border-radius:90px;
+	font-size:13px;
+	position:relative;
+		
+	top:-5px;
+	left:4px;
+	text-decoration:none;
+
+}
+#slides_p .pagination li.current{
+	
+
+}
+#slides_p .pagination li.current a {
+	background:#666;
+		box-shadow:1px 1px 1px #aaa;
+			color:#fff;
+			font-weight:bold;
+}
+
+/*
+	Type and anchors
+*/
+
+#slides_p a:link,a:visited {
+	text-decoration:none;
+}
+
+#slides_p a:hover,a:active {
+	color:#599100;
+	text-decoration:none;
+}
+#slides_p  .link a:link,a:visited {
+	text-decoration:none;
+}
+
+#slides_p .link a:hover,a:active {
+	color:#599100;
+	text-decoration:none;
+}
+#slides_p h1 {
+	font-size:2em;
+}
+
+#slides_p p {
+	font-size:1.3em;
+}
+

@@ -1,4 +1,7 @@
-<?php session_start();?>
+<?php 
+header('Location:donate_postpay.php');
+exit();
+session_start();?>
 <?php $thispage = "uccertificates"; ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
@@ -9,7 +12,7 @@
   <META NAME="Description" CONTENT="UC is an exchange platform to channel Philanthropic Resources to Education, Health and Environmental services sectors, in order to improve access to these services especially for the poor. These sectors need a much larger infusion of capital of various kinds including Financial, Intellectual and Social Capital.">
   <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
   <link rel="stylesheet" type="text/css" href="css/main.css">
-  <script>window.jQuery || document.write('<script src="css/jquery.js"><\/script>')</script>
+  <script>window.jQuery || document.write('<script src="scripts/jquery.min.js"><\/script>')</script>
   <script type="text/javascript" src="https://www.google.com/jsapi"></script>
   <script type="text/javascript">
   $(document).ready(function() {

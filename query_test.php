@@ -14,7 +14,7 @@ $query = "SELECT
           ORDER BY department)INFO";
 
 //connect to database
-include("prod_conn.php");
+include("connect_activity.php");
 mysql_connect("$dbhost","$dbuser","$dbpass");
 mysql_select_db("$dbdatabase");
 $result = mysql_query($query);

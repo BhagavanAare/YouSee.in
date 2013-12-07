@@ -12,7 +12,7 @@
   <link rel="stylesheet" type="text/css" href="css/ajaxtabs.css">
   <SCRIPT type="text/javascript" src="css/ajaxtabs.js"></script>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-  <script>window.jQuery || document.write('<script src="css/jquery.js"><\/script>')</script>
+  <script>window.jQuery || document.write('<script src="scripts/jquery.min.js"><\/script>')</script>
   <script type="text/javascript" src="https://www.google.com/jsapi"></script>
   <script type="text/javascript">
   google.load("visualization", "1", {packages:["map"]});

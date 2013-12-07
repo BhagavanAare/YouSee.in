@@ -5,7 +5,6 @@
 	//Unset the variables stored in session
 	unset($_SESSION['SESS_USER_ID']);
 	unset($_SESSION['SESS_DONOR_ID']);
-	session_destroy();
 ?>
 <?php $thispage = ""; ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"

@@ -32,12 +32,12 @@ to ensure realignment of data and labels in horizntal bar display.
 
 <img src="http://chart.apis.google.com/chart
 ?cht=bhs
-&chtt=Donations+by+City+-Total+INR+<?php echo $ptotal_donation;?>
+&chtt=Total+Donations+INR+<?php echo $ptotal_donation;?>
 &chxt=x,y
 &chd=<?php echo $data;?>
 &chxl=<?php echo $labels;?>
 &chds=a
 &chbh=a
 &chco=99CC00
-&chs=500x250
+&chs=250x250
 ">

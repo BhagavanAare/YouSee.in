@@ -1,0 +1,28 @@
+<ul  class="tree" >  
+	<li class="tree">
+		<label for="folder1" class="menu_first">My Donations</label> 
+		<input type="checkbox" checked id="folder1" />
+		<ul>
+			<li class="tabLink"> <a href="myucSummary.php" class="file" id="summaryTab">Summary</a></li>
+			<li class="tabLink"> <a href="myucVolunteeringContributions.php" class="file" id="volunteeringTab">Volunteering</a></li>
+			<li class="tabLink"> <a href="myucPageUnderConstruction.php" class="file" id="inkindTab">In Kind</a></li>
+			<li class="tabLink"> <a href="myucWasteDonations.php" class="file" id="wasteTab">Waste</a></li>
+			<li class="tabLink"> <a href="myucFinancialDonations.php" class="file" id="financialTab">Financial</a></li>
+		
+    		</ul>
+	</li>
+	<li class="tree">
+		<label for="folder2" class="menu_first">Update</label> 
+		<input type="checkbox" checked id="folder2" />
+		<ul>
+			<li class="tabLink"> <a href="myucUpdateInfoUtil.php" class="file" id="myInfoTab">My Info</a></li>
+			<li class="tabLink"> <a href="myucChangePassword.php" class="file" id="settingsTab">Password</a></li>
+			<li class="tabLink"> <a href="myucUpdateActivity.php" class="file" id="updateVolunteeringTab">Volunteering</a></li>
+		</ul>
+	</li>
+</ul>
+<script>
+	var tabSelected="file activeLink";
+	document.getElementById('<?php echo $activetab ?>').className=tabSelected;
+</script>
+

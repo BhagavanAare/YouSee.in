@@ -1,40 +1,79 @@
 <?php
 include("prod_conn.php");
-$query = "SELECT * FROM places
-          WHERE place_type='Compost Center'";
+$query = "SELECT * FROM places JOIN place_category ON 
+places.place_category_id = place_category.place_category_id
+WHERE place_category='Compost Center' OR place_category='Donation Camp'GROUP BY city";
 mysql_connect("$dbhost","$dbuser","$dbpass");
 mysql_select_db("$dbdatabase");
 $result = mysql_query($query);
-$rows = mysql_num_rows($result);
+$num = mysql_num_rows($result);
 ?>
 
 <html>
   <head>
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript">
-      google.load("visualization", "1", {packages:["map"]});
-      google.setOnLoadCallback(drawMap);
-      function drawMap() {
-        var data = new google.visualization.DataTable();
-        data.addColumn('number', 'Lat');
-        data.addColumn('number', 'Lon');
-        data.addColumn('string', 'Name');
-        data.addRows(<?php echo $rows; ?>);
-        
-        <?php
-        $jsrow = 0;
-        while ($row = mysql_fetch_assoc($result)) {
-        $latitude = $row['latitude'];
-        $longitude = $row['longitude'];
-        $location = $row['organisation'] . ", " . $row['location'];
-        echo "data.setCell($jsrow, 0, $latitude); data.setCell($jsrow, 1, $longitude); data.setCell($jsrow, 2, '$location');";
-        $jsrow++;
-        }
-        ?>
 
-        var map = new google.visualization.Map(document.getElementById('map_div'));
-        map.draw(data, {showTip: true});
-      }
+  <script type="text/javascript"
+	src="https://maps.googleapis.com/maps/api/js?&sensor=true&region=IN">
+  </script>   
+   <script type="text/javascript">
+      	var points = [
+				<?php 
+				$i=1;
+				while($row=mysql_fetch_array($result)){
+					echo "['$row[city]',$row[latitude],$row[longitude],1,'donate_waste_city.php?city=$row[city]']";
+					if($i!=$num){
+						echo ",";
+					}
+					$i++;
+				}
+				?>
+				];
+	function setMarkers(map, cities) {
+	    var shape = {
+	        coord: [1, 1, 1, 20, 18, 20, 18, 1],
+	        type: 'poly'
+	    };
+	    for (var i = 0; i < cities.length; i++) {
+	        var flag = new google.maps.MarkerImage(
+	            'http://googlemaps.googlermania.com/google_maps_api_v3/en/Google_Maps_Marker.png',
+	        new google.maps.Size(37, 34),
+	        new google.maps.Point(0, 0),
+	        new google.maps.Point(10, 34));
+	        var place = cities[i];
+	        var myLatLng = new google.maps.LatLng(place[1], place[2]);
+	        var marker = new google.maps.Marker({
+	            position: myLatLng,
+	            map: map,
+	            icon: flag,
+	            shape: shape,
+	            title: place[0],
+	            zIndex: place[3],
+	            url: place[4]
+	        });
+	        google.maps.event.addListener(marker, 'click', function () {
+	        window.location.href = this.url;
+	        });
+	    }
+	}
+	function initialize() {
+		// Create an array of styles.
+
+
+	    var myOptions = {
+	    center: new google.maps.LatLng(23.324167, 78.134766),
+	        zoom: 4,
+	   mapTypeControlOptions: {
+	      mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.TERRAIN, google.maps.MapTypeId.SATELLITE, google.maps.MapTypeId.HYBRID ]
+	    }
+	    };
+		
+	    var map = new google.maps.Map(document.getElementById("map_div"), myOptions);
+	    map.setOptions({draggable: true, zoomControl: true, scrollwheel: false, disableDoubleClickZoom: false});
+
+	     setMarkers(map, points);
+	}
+	
+	google.maps.event.addDomListener(window,'load',initialize);
     </script>
   </head>
 

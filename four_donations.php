@@ -24,35 +24,44 @@
 
 <table border="0">
 <tr>
-<td><img src="images/donate_effort.jpg" height="42" width="42" align="middle" border="0" /></td>
+<td rowspan="2"><img src="images/donate_effort.jpg" height="42" width="42" align="middle" border="0" /></td>
 <td><b><a href="donate_time.php">Donate Time</a></b> ( Shram Daan ) -Volunteer</td>
 </tr>
+<tr><td><p>UC facilitates volunteers to engage in predictable and structured volunteering initiatives with various Non-Profit organisations. The Donate Time platform on UC website helps donors to identify volunteering opportunities based on the Cause that they wish to support, the Skills that they can offer to a social activity and the time that they can give for the cause.</p> </td></tr>
 <tr>
-<td><img src="images/books1.jpg" height="42" width="42" align="middle" border="0" /></td>
+<td rowspan="2"><img src="images/books1.jpg" height="42" width="42" align="middle" border="0" /></td>
 <td><b><a href="donate_in_kind.php">Donate in Kind</a></b> ( Vastu Daan )</td>
 </tr>
 <tr>
-<td><img src="images/donate_waste.jpg" height="42" width="42" align="middle" border="0" /></td>
-<td><b><a href="donate_waste.php">Donate Waste</a></b> ( Kachra Daan )</td>
-</tr>
+<td><p>NPOs (NonProfit Organisations) can make In-Kind Donation requests here. Donors can also commit to donate items In-Kind here. UC is evolving criteria for NPOs and Donors to request and commit to In-Kind donations, in such a way that the most needy are supported. Donors can also donate In-Kind reusable(portable) items by visiting the Donation Camps held at different locations in a <a href="donate_waste.php">few cities</a>.</p>
+</td>
 </tr>
 <tr>
-<td><img src="images/donate_wealth.jpg" height="42" width="42" align="middle" border="0" /></td>
-<td><b><a href="uccertificates.php">Donate Wealth</a></b> ( Dhan Daan ) -PostPay</td>
+<td rowspan="2"><img src="images/donate_waste.jpg" height="42" width="42" align="middle" border="0" /></td>
+<td><b><a href="donate_waste.php">Donate Waste</a></b> ( Kachra Daan )</td>
 </tr>
+<tr><td><p>
+As a part of its Donate Waste (Kachra Daan) initiative, UC works with Residential, Office and Academic communities to Reduce, Segregate and Donate waste. Dry waste items are usually donated once a month on the last weekend. Items like papers, plastics, glass and metal are picked up by a waste recycler (Raddhiwala) from the local area. Electronic waste items are handed over to specialised e-waste recyclers. UC facilitates in linking the community with the waste recyclers. The value generated from the dry waste can be donated by the community to support projects in Health, Education, Environment and other Social projects. During these donation camps, residents also donate old books and clothes, which are then redistributed to people who need them.</p>
+<p>
+UC also provides support to set up compost centers in these communities, so that their food and garden waste can be locally converted to organic manure, rather than being transported to landfills. The Donate Waste initiative is a citizen driven initiative, which simultaneously delivers environmental outcomes and also resources to support other social causes.</p>
+</td></tr>
+<tr>
+<td rowspan="2"><img src="images/donate_wealth.jpg" height="42" width="42" align="middle" border="0" /></td>
+<td><b><a href="donate_postpay.php">Donate Wealth</a></b> ( Dhan Daan ) -PostPay</td>
+</tr>
+<tr>
+<td><p>The fourth form of giving promoted by UC, the PostPay funding model, works by prefunding of projects from UC’s corpus, followed by measurement and documentation of outcomes from such projects. Potential donors are then invited to view outcomes from such projects, creating an option for donors to PostPay for known outcomes rather than anticipated outcomes. UC works to promote Giving for Result oriented, Transparent and Measurable Social Development Work, through a <b>PostPay Philanthropy model</b>. </p></td></tr>
 </table>
 
-<p>We invite volunteers look at the volunteering opportunities listed <a href="donate-your-time.php">here</a>. We would also like to invite college students doing courses in related fields to undertake projects with UC. If you wish to get in touch with UC, send us a <a href="http://creator.zoho.com/gunaranjan/uc-customer-feedback/form-perma/Join_us/nt8m1VMkCSbK6YrGCkYpC5jmEvbnn2MuEZnmMwdKyzeJOOf9pB8wSzB4pgjGkv02WTE2dKGShXv78kTkOVvtstszhWVj2CZv8AYg/"><b>message</b></a> .We shall try to revert to you within 24 hours. </p>
 </div>
 <!--#maincontentarea-->
 
-
 <!--footer-->
-<?php include 'footer.php' ; ?>
 <!--#footer-->
 
  </div>
  <!--#wrapper-->
+<?php include 'footer.php' ; ?>
 
  </BODY>
 </HTML>

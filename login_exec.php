@@ -34,8 +34,8 @@ function clean($str) {
 }
 
 //Sanitize the POST values
-$username = clean($_POST['username']);
-$password = clean($_POST['password']);
+$username = clean(trim($_POST['username']));
+$password = md5(clean(trim($_POST['password'])));
 
 //Input Validations
 if($username == '') {
@@ -57,7 +57,7 @@ if($errflag) {
 
 //Create query
 $query="SELECT * FROM users WHERE username='$username' AND password='$password'";
-echo "<script>alert('$query');</script>";
+
 $result=mysql_query($query);
 //Check whether the query was successful or not
 if ($result) {
@@ -67,14 +67,16 @@ if ($result) {
 		$user = mysql_fetch_assoc($result);
 		$_SESSION['SESS_USER_ID'] = $user['user_id'];
 		$_SESSION['SESS_USER_TYPE'] = $user['user_type_id'];
-		//echo "<script>alert('".$user['user_type_id']."');</script>";
 		$_SESSION['SESS_USERNAME'] = $user['username'];
-		setRequiredInfo();
-		session_write_close();
-		header("location: redirect.php");
-		exit();
-			
-	}else {
+		//if($result['regStatus']=="A")
+			setRequiredInfo();
+			session_write_close();
+			header("location: date_update.php");	
+			exit();
+	
+	}
+	else 
+	{
 		//Login failed
 		header("location: login_failed.php");
 		exit();
@@ -86,6 +88,7 @@ function setRequiredInfo()
 {
 	if ($_SESSION['SESS_USER_TYPE'] == "D")
 	{
+	
 		$query = "SELECT displayname, donor_id
           				FROM donors
           				WHERE user_id=".$_SESSION['SESS_USER_ID'];
@@ -99,7 +102,7 @@ function setRequiredInfo()
 				$_SESSION['SESS_DISPLAYNAME'] = $donor['displayname'];
 				
 			}
-			
+					
 		}
 	}
 	if ($_SESSION['SESS_USER_TYPE'] == "N")
@@ -113,7 +116,7 @@ function setRequiredInfo()
 			if(mysql_num_rows($result) == 1)
 			{
 				$ngo = mysql_fetch_assoc($result);
-				$_SESSION['SESS_DISPLAYNAME'] = $ngo['displayname'];
+				$_SESSION['SESS_DISPLAYNAME'] = $ngo['name'];
 				session_write_close();
 			}
 		}
@@ -124,3 +127,10 @@ function setRequiredInfo()
 	}
 }
 ?>
+<?php
+/* Change log
+
+02-Jun-2013 - Vivek - Password Encryption.
+
+*/
+?>	

@@ -40,14 +40,14 @@ $to_date2= $row2['to_date'];
   <div align="center">
   <table border="0" width="450" style='table-layout:fixed; font-family:"arial"; font-size:12px'><th width="25%"><th width="25%"><th width="25%"></th><th width="25%"></th>
   <tr>
-  <td colspan="2" align="center"><b>2. Donations in Kind</b><br>from <?php echo  $from_date2; ?> to <?php echo  $to_date2; ?></td>
-  <td colspan="2" align="center"><b>3. Waste Donations</b><br>from <?php echo  $from_date; ?> to <?php echo  $to_date; ?></td>
+  <td colspan="2" align="center"><b>2. Donations in Kind</b><br>from <? echo  $from_date2; ?> to <? echo  $to_date2; ?></td>
+  <td colspan="2" align="center"><b>3. Waste Donations</b><br>from <? echo  $from_date; ?> to <? echo  $to_date; ?></td>
   </tr>
   <tr>
   <td align="right"><img src="images/books1.jpg" border="0" /></td>
-  <td align="left"><h2><?php echo $total_books; ?> Books</h2></td>
+  <td align="left"><h2><? echo $total_books; ?> Books</h2></td>
   <td align="right"><img src="images/wastebin.jpg" border="0" /></td>
-  <td align="left"><h2><?php echo $totaldonation_kg; ?> Kgs</h2></td>
+  <td align="left"><h2><? echo $totaldonation_kg; ?> Kgs</h2></td>
   </tr>
   </table>
   </div>

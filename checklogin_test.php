@@ -35,7 +35,6 @@ else {
 //direct to donor login page
 session_register("myusername");
 session_register("mypassword");
-$_SESSION['myusername'] = $_POST['myusername'];
 header("location:myuc.php"); }
 }
 

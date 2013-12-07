@@ -1,4 +1,4 @@
-<?php
+<?
 //query for selecting all Service Homes at Hyderabad
 $city = "Hyderabad";
 $query = "SELECT * FROM places
@@ -31,7 +31,7 @@ $datastring = substr($datastring, 0, -3);
 	if(!domNode.isMapLoaded){
 		var data = google.visualization.arrayToDataTable([
 		['Lat', 'Lon', 'Name'],
-		<?php echo $datastring; ?>
+		<? echo $datastring; ?>
 		]);
 
 		var map = new google.visualization.Map(domNode);
@@ -46,7 +46,7 @@ $datastring = substr($datastring, 0, -3);
 
     <div id="cont-3-map" style="width: 900px; height: 500px"></div>
     <br>
-<?php 
+<? 
 //dispaly as a table the map pointers data
 include 'display_table.php';
 ?>

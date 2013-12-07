@@ -1,0 +1,30 @@
+@CHARSET "ISO-8859-1";
+
+//Tooltip css
+span.link {
+	position: relative;
+}
+
+span.link a span {
+	display: none;
+}
+
+span.link a:hover {
+	font-size: 99%;
+	font-color: #000000;
+}
+
+span.link a:hover span {
+	display: block;
+	position: absolute;
+	margin-top: 10px;
+	margin-left: -10px;
+	width: 175px;
+	padding: 5px;
+	z-index: 100;
+	color: #000000;
+	background: #f0f0f0;
+	font: 12px "Arial", sans-serif;
+	text-align: left;
+	text-decoration: none;
+}s

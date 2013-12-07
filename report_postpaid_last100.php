@@ -20,12 +20,12 @@ $query = "SELECT
          AMOUNT_FOR_OPERATIONS_GRANT,
          VILLAGE_TOWN
          FROM donors
-         JOIN POSTPAY_CERTIFICATES USING (donor_id)
-         JOIN PAYMENTS USING (PAYMENT_ID)
+         JOIN postpay_certificates USING (donor_id)
+         JOIN payments USING (PAYMENT_ID)
          ORDER BY PAYMENT_DATE DESC
-         LIMIT 0,100)INFO
-         LEFT OUTER JOIN PROJECT_CERTIFICATES USING (CERTIFICATE_ID)
-         LEFT OUTER JOIN PROJECTS USING (PROJECT_ID))FULL
+         LIMIT 0,150)INFO
+         LEFT OUTER JOIN project_certificates USING (CERTIFICATE_ID)
+         LEFT OUTER JOIN projects using (PROJECT_ID))FULL
          LEFT OUTER JOIN project_partners USING (partner_id)";
 
 //connect to host and database
