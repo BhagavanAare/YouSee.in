@@ -11,7 +11,7 @@
 		while($row=mysql_fetch_array($result)){
 			$place=str_replace(" ","-",$row['place_desc']);
 			if($name!=$place){
-				header("Location:/places/$id/$place");
+				header("Location:places/$id/$place");
 				exit();
 			}
 		}
@@ -129,7 +129,7 @@ while($row=mysql_fetch_array($result)){
  	<a href="/getplaces.php?placeid=<?php echo $row['place_id']; ?>"> <?php echo $row['place_title']; ?> </a>
 </span>
 </td>
-</tr>
+</tr> 
 <tr>
 <td style="width:500px;border-right:1px solid #ccc;padding-right:20px;">
 	<p>
@@ -368,6 +368,119 @@ value="<?php echo $record['opportunity_id']; ?>" name="opp_id[]" checked /></td>
 else echo "<h3>No Volunteering requests posted.</h3>"; ?>
 
 </div>
+
+	
+<div id="existing_content" ">	
+	<?php
+	$request_query="SELECT * FROM kind_donations 
+				JOIN items on kind_donations.item_id=items.item_id
+				JOIN item_category on items.category_id=item_category.category_id 
+				JOIN places
+				 on kind_donations.place_id=places.place_id
+				WHERE initiative_type=0 AND request_quantity>offer_quantity 
+				AND offer_quantity=0 AND status='Open' 
+				AND places.places_id = $id 
+				AND request_expiry_date>'".date("Y-m-d")."'".$where." LIMIT 0,1";
+	$request_ex=mysql_query($request_query);
+	if(mysql_num_rows($request_ex)>0){
+		echo "
+	<h1 style='border:1px solid #ccc;background:#eee;
+	border-radius:0.2em;padding:3px;'>Recent In kind requests</h1>";
+		?>
+<?php 
+echo "<table class='table-item' 
+		style='width:750px;margin:0px;padding:0px;
+		border-radius:1em;border:1px solid transparent'>
+		<tr style=''>
+			<th style='background:#fff;width:10px;
+			font-size:12px;padding:0px;margin:0px'>Category</th>
+			<th>Item name</th>
+			<th>Quantity</th>
+			<th>Requested By</th>
+			<th>Transport by</th>
+			<th>I Commit..</th>
+			<th></th>
+		</tr>
+	</table>";
+$i=0;
+while($row=mysql_fetch_array($request_ex)){	
+?>
+	<div class="postedComment" id="<?php echo $row['donation_id']; ?>" >
+		<div class="itemdiv <?php echo $row['category']; ?>" 
+		id="item<?php echo $row['donation_id']; ?>"  style="margin:0px;">
+			<table class="table-item">
+				<tr>
+					<td  style="font-size:13px;font-weight:bold;" 
+					id="item<?php echo $row['donation_id'];?>">
+						<span class="link">
+							<a><?php echo $row['donationitem']; ?>
+							<span id="note<?php echo $row['donation_id'];?>">
+								<p style="margin:5px;padding:5px;">
+									<?php echo $row['note'];?>
+								</p>
+							</span>
+							</a>
+						</span> 
+					</td>
+					<td>
+						<?php echo $row['request_quantity']." ".$row['units_type'];?>
+					</td>
+					<td>
+						<span class="link">
+							<a href="/npo/<?php echo $row['partner_id']; ?>">
+							<?php echo $row['name']; ?>
+							<span id="reqadd<?php echo $row['donation_id'];?>">
+							<p style="margin:5px;padding:5px;">
+							<?php 
+							echo $row['request_address'].",".$row['request_city'];?>
+							</p>
+							</span>
+						</a>
+					</td>
+					<td><?php if($row['transport']==1)
+					 echo "<img src='images/npo.png' alt='Pick-Up' />"; 
+					 else echo "<img src='images/donor.png' alt='Deliver' />" ?>
+					</td>
+					<form action="/inkind_commit.php" method="POST">
+					<td style="text-align:left;">
+						<input type="text" name ="offer_quantity" 
+						value="<?php echo $row['request_quantity'];?>" 
+						id="offer_quantity<?php echo $row['donation_id'];?>" 
+						size="2" name="commit_quantity"/>
+						<?php echo $row['units_type'];?>
+						<input type="text" name="id" value="<?php echo $row['donation_id']; ?>"
+						hidden />
+					</td>
+					<td style="width:5%;"><input type="submit" 
+					value="Commit" class="commit_request" 
+					id="<?php echo $row['donation_id']; ?>" />
+					</form></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+<?php
+	}
+?>
+	
+</div>
+	
+<div>	
+	<?php
+	echo "<br /><b><a href='/npo_inkind.php?npo=$id'>
+	See all In Kind requests by this Service Place</a></b>
+	<hr>";	
+?>
+
+<?php 
+	}
+	else {
+		echo "<h3> No In-Kind requests. </h3>
+		<hr>";
+	}
+?>
+
+
 
 </div>
  <?php include 'footer.php' ; ?>
