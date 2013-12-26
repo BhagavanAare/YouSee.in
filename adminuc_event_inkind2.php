@@ -316,6 +316,7 @@ for ($i = 0; $i < count($itemIDs); $i++)
 <input type="text" name="donor_mobile" id="mobilebox" placeholder="Mobile" readonly />
 <input type="text" name="donor_city" name="citybox" placeholder="City" id="citybox" readonly />
 <input type="text" name="donor_org" id="orgbox" placeholder="Organization" readonly />
+<input type="hidden" id="donor_address" name="donor_address"  />
 </span>
 <div id="search_result" style="border: 1px solid #ccc;height:auto;background:white;max-height:300px;width:300px; overflow:auto;display:none;position:absolute;z-index:1000">
 </div>
@@ -395,24 +396,7 @@ for ($i = 0; $i < count($itemIDs); $i++)
 						<td colspan="4">						<textarea id="requestAddress" rows="3" value=""
 												name="request_address" required></textarea></td>
 					</tr>
-					<tr hidden>
-						<td align="right">Request Expiry Date <span class="link"><a
-							href="javascript: void(0)"><font
-							face=verdana,arial,helvetica size=2>[?]</font><span>The
-								default Request Expiry Date is set to 90 days from Current
-								Date. An Earlier date can be set by the NGO.</span></a></span></td>
-						<td colspan="4">
-						<input type="text" placeholder="YYYY/MM/DD"
-						name="req_exp_date" id="req_exp_date" size="10"
-						value='<?php
 
-						date_default_timezone_set('Asia/Kolkata');
-						$end = date("d-M-Y", strtotime("+3 months"));
-						echo $end;
-						?>'
-						required />
-						</td>
-					</tr>
 					<tr>
 						<td colspan="2" align="center">
 						<input type="submit"
@@ -438,65 +422,69 @@ $place = $_POST['place_id'];
 $donorId = $_POST['donor_id'];
 $date = $_POST['dod'];
 $dod = date ( "Y-m-d", strtotime ( $_POST ['dod'] ) );
+$formattedDate = date ( "d-m-Y", strtotime ( $_POST ['dod'] ) );
 $donorName = $_POST['donor_name'];
 $donorMail = $_POST['donor_email'];
+$donorCity = $_POST['donor_city'];
+$donorAddress = $_POST['donor_address'];
 
 $tables = array ();
 $itemCount = count ( $categoryArray );
+$tableText = "<table cellpadding='4'  style='border-collapse:collapse;' border='1'>";
+$tableText.= "<tr>
+<th colspan=\"4\" align=\"center\" height=\"20\" valign=\"top\">Items Recieved</th>
+</tr>";
+$tableText.= "<tr><td>S.No</td><td>Category</td><td>Item</td><td>Quantity</td></tr>";
+
+$twoDArray = array();
+for($j = 0; $j < $itemCount; $j ++) 
+{
+	$twoDArray['$catagoryArray['.$j.']'] = array($itemIDArray[$j],$reqQuntityArray[$j]);
+}
+
+echo count($twoDArray);
+ksort($twoDArray);
+$num = 1;
+for($j = 0; $j < $itemCount; $j ++) 
+{
+	
+	$tableText .= "<tr><td>". ($num++) ."</td><td>" . $twoDArray['$catagoryArray['.$j.']'] . "</td><td>" . $twoDArray['$catagoryArray['.$j.']'][1] . "</td><td>" . $twoDArray['$catagoryArray['.$j.']'][2] . "</td></tr>";
+}
+
+$tableText .= "</table>";
+echo "$tableText";
+
 
 for($j = 0; $j < $itemCount; $j ++) 
 {
 	$insert_inkind = "INSERT INTO kind_donations(initiative_type,partner_id,donor_id,item_id,units_type,request_quantity,offer_quantity,request_city,offer_city ,request_address,offer_address, request_date,offer_date, request_expiry_date,delivery_date, transport,note,status,place_id)
-				VALUES ('0','$partner[partner_id]','$donorId','$itemIDArray[$j]','$unitsTypeArray[$j]', '$reqQuntityArray[$j]','$reqQuntityArray[$j]', '$_POST[request_city]','$_POST[request_city]', '$_POST[request_address]', '$_POST[request_address]', $dod , $dod , '" . date ( "Y-m-d", strtotime ( $_POST ['req_exp_date'] ) ) . "',$dod, '0','Donation Camps, Individual Donations.','Delivered','$place')";
+				VALUES ('0','$partner[partner_id]','$donorId','$itemIDArray[$j]','$unitsTypeArray[$j]', '$reqQuntityArray[$j]','$reqQuntityArray[$j]', '$donorCity','$_POST[request_city]', '$_POST[request_address]', '$donorAddress', '$dod' , '$dod' , '$dod','$dod', '0','Donation Camps, Individual Donations.','Delivered','$place')";
+	//echo $insert_inkind;
 	$registration = mysql_query ( $insert_inkind );
 	$subid = mysql_insert_id ();
 	$update = mysql_query ( "UPDATE kind_donations set sub_id=$subid WHERE donation_id=$subid" );
 	$item = mysql_fetch_array ( mysql_query ( "SELECT donationitem,request_quantity from items INNER JOIN item_category on items.category_id=item_category.category_id INNER JOIN kind_donations ON items.item_id=kind_donations.item_id  WHERE kind_donations.donation_id=$subid" ) );
-	$tables [] = "
-<table cellpadding='5' style='border-collapse:collapse;' border='1'>
-<tr>
-<th colspan=\"2\" align=\"center\" height=\"20\" valign=\"top\">Request Details</th>
-</tr>
-<tr>
-<td>Partner</td>
-<td>" . $partner ['name'] . "</td>
-</tr>
-<tr>
-<tr>
-<td>Item </td>
-<td>" . $item ['donationitem'] . "</td>
-</tr>
-<tr>
-<td>Quantity </td>
-<td>" . $item ['request_quantity'] . "</td>
-</tr>
-</table>
-<br />";
+	$tableText .= "<tr><td>". ($j+1) ."</td><td>" . $item ['donationitem'] . "</td><td>" . $item ['request_quantity'] . "</td></tr>";
 }
 
-$partnerEmail = $partner ['partner_email'];
 $parnterName = $partner ['name'];
 $partnerContactName = $partner['contact_first_name'];
 $emailBody = "To,
-Dear $partnerContactName,
+Dear $partnerContactName,<br><br>
 
 This is to inform you that the following items have been received by " . $partner ['name'];
 
 if($place != '')
 {
-	$emailBody .= ", ".$placeNames[$partnerId];
+	$emailBody .= " for ".$placeNames[$partnerId].", ";
 }
-$emailBody .=  " donated by $donorName on $date";
-
-for($i=0;$i<count($tables);$i++)
-{
-	$emailBody .= $tables[$i];
-}
+$emailBody .=  " donated by $donorName on $formattedDate";
+$emailBody .= $tableText;
 //echo "$emailBody";
 
 
 
-// sendEmail ( $partnerEmail, $parnterName, $emailSubject, emailBody );
+//sendEmail ( $partnerEmail, $donorMail, $partnerContactName, $emailBody);
 
 				?>
 
@@ -512,11 +500,7 @@ for($i=0;$i<count($tables);$i++)
 				{
 					echo "<h3 align='center'>Update succesful.</h3>";
 					//echo "<h2>Recent In-Kind Updates</h2>";
-					$noOfTables = count($tables);
-					for ($x = 0; $x < $noOfTables; $x++)
-					{
-						echo $tables[$x];
-					}
+					//echo "$tableText";
 					exit();
 				}
 				?>
@@ -548,10 +532,8 @@ function sendEmail($email, $donorMail, $displayName, $mailBody)
 		$to = $email;
 		$mail -> AddAddress($to);
 		$mail -> AddCC($donorMail);
-		$mail -> AddBCC("contact@yousee.in");
-
-		$body = "Dear  " . $displayName . ",<br><br>";
-		$body .= $mailBody;
+		
+		$body = $mailBody;
 		$body .= "<br><br><br> From YouSee  (+91-8008-884422) <br /> <a href=\"www.yousee.in\">www.yousee.in</a>";
 		$mail -> Subject = "In-Kind Donations Recieved";
 		$mail -> Body = $body;

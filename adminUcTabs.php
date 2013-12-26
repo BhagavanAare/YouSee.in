@@ -37,10 +37,11 @@ $count=0;
 		<label for="folder5" class="menu_first">  Update</label> 
 		<input type="checkbox" checked id="folder5" />
 		<ul  class="tree" >  
+			<li class="tabLink"><a href="adminuc_volunteering_requests.php"  class="file" id="requests-volunteering">Volunteering Opp.</a></li>
+			<li class="tabLink"><a href="adminuc_event_inkind.php"  class="file" id="events-inkind">In-Kind Donations</a></li>					
 			<li class="tabLink"><a href="update_waste.php"  class="file" id="wasteUpdateTab">Waste Donations</a></li>	
 			<li class="tabLink"><a href="admin_postpay.php"  class="file" id="postpayUpdateTab">Postpay Donations</a></li>
-			<li class="tabLink"><a href="adminuc_volunteering_requests.php"  class="file" id="requests-volunteering">Volunteering Opp.</a></li>
-			<li class="tabLink"><a href="adminuc_event_inkind.php"  class="file" id="events-inkind">Events In-Kind Donations</a></li>					
+			<li class="tabLink"><a href="update_serviceplaces.php"  class="file" id="service-places">Service places</a></li>					
 		</ul>
 	</li>
 	<li class="tree"> 
@@ -65,6 +66,7 @@ $count=0;
 		<ul  class="tree" >  
 			<li class="tabLink"><a href="getserverIP.php"  class="file" id="getserverIP">View IP addresses</a></li>	
 			<li class="tabLink"><a href="adminucresetpwd.php"  class="file" id="resetpwd">Reset password</a></li>	
+			<li class="tabLink"><a href="admin_mailer.php"  class="file" id="admin_mailer">Mailer</a></li>	
 		</ul>
 	</li>
 </ul>

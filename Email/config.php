@@ -9,10 +9,10 @@ try {
 	$mail = new PHPMailer(true); //New instance, with exceptions enabled
 
 	$mail->IsSMTP();	// tell the class to use SMTP
-	$mail->Host       = "localhost"; // SMTP server
+	$mail->Host       = "mail.yousee.in"; // SMTP server
 //	$mail->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
-	$mail->Host       = "localhost"; // SMTP server
-
+	$mail->Host       = "mail.yousee.in"; // SMTP server
+	$mail->
 	$mail->SetFrom('contact@yousee.in', 'YouSee');
 	$mail->AddReplyTo("contact@yousee.in","Yousee");
 	
