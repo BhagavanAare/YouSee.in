@@ -4,18 +4,8 @@
 <option value="dasc">Date Asc</option>
 <option value="ddesc">Date desc</option>
 </select>
-<!--facebook share javascript -->
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_IN/all.js#xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
 <?php 
-session_start();
+
 //connect to database
 include("prod_conn.php");
 mysql_connect("$dbhost","$dbuser","$dbpass");
@@ -38,6 +28,15 @@ if(isset($_REQUEST['vertical']))
   				$where.="v.vertical='".$v."')";
 			}
 	}
+}
+if(isset($_REQUEST['dates'])){
+	$where.=" AND (";
+	$dates = $_REQUEST['dates'];
+	$fromdate = new DateTime($dates[0]);
+	$todate = new DateTime($dates[1]);
+	$from_date = $fromdate->format('Y-m-d');
+	$to_date = $todate->format('Y-m-d');
+	$where.="$from_date <= o.to_date AND $to_date >= o.from_date) ";
 }
 if(isset($_REQUEST['domain'])){
 	$where.=" AND (";
@@ -84,6 +83,7 @@ if(isset($_POST['date'])){
 		$where.="o.from_date <= ".$date." AND ".$date."<= o.to_date )";;
 }
 $_SESSION['where_var']=$where;
+//echo $_SESSION['where_var'];
 $_SESSION['sort_var']=$sort;
 $activityQuery="SELECT * FROM project_partners p
 				JOIN volunteering_activity v ON p.partner_id=v.partner_id 
@@ -129,7 +129,6 @@ $commitresult=mysql_query($committedquery);
 	<span style="font-family:Trebuchet MS;font-size:11px;"><b><?php echo $row['onsite_offsite']; ?></b></span>
 <br />
 	<span style="float:left;font-family:Trebuchet MS;font-size:11px;">Partner:&nbsp<a style="font-size:11px;" href="/npo/<?php echo $row['partner_id'];?>"><?php echo $row['name']; ?></a></span><br />
-	<div class="fb-share-button" data-href="http://www.yousee.in/volunteering_opportunities.php" data-type="button_count"></div>
 	<input style="float:right;margin-right:8px;margin-top:-11px;" type="button" value="View and Commit">
 	<span style="float:left;width:60%;font-family:Trebuchet MS;font-size:11px;"><b>Skills Required:</b>&nbsp<?php echo $row['skills']; ?></span>
 
@@ -144,13 +143,13 @@ $commitresult=mysql_query($committedquery);
 	<th>From date</th><th>To Date</th><th>From time</th><th>To time</th><th>Location</th><th>City</th><th>Vol Req.</th><th><span class="link"><a href="javascript: void(0)"><font face=verdana,arial,helvetica size=2>[?]</font><span>Default setting assumes you are committing to all the days of the activity. Deselect any particular date which may not be possible for you.</span></a></span></th></tr>
 	<?php while($record=mysql_fetch_array($oppresult)){ ?>
 	<tr>
-	<td><?php echo "".gmdate("d-M-y",strtotime($record['from_date']));?></td>
-	<td><?php echo "".gmdate("d-M-y",strtotime($record['to_date']));?></td>
-	<?php if($record['from_time']==0){ echo "<td></td>";}
+	<td><?php echo "".date("d-M-y",strtotime($record['from_date']));?></td>
+	<td><?php echo "".date("d-M-y",strtotime($record['to_date']));?></td>
+	<?php if($record['from_time']==0 || $record['from_time']==NULL || $record['from_time']==""){ echo "<td></td>";}
 	else {?>	
 	<td><?php echo "".date("g:iA",strtotime($record['from_time']));}?></td>
 	<?php
-	if($record['to_time']==0){ echo "<td></td>";}
+	if($record['to_time']==0 || $record['to_time']==NULL || $record['to_time']==""){ echo "<td></td>";}
 	else {?>	
 	<td><?php echo "".date("g:iA",strtotime($record['to_time']));}?></td>
 	<td><?php echo "".$record['location'];?></td>

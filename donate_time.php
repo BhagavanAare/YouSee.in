@@ -1,4 +1,4 @@
-<?php session_start();?>
+
 <?php $thispage = "donate_time"; ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
@@ -16,11 +16,31 @@
 <script src="scripts/jquery.ui.widget.js"></script>
 <script src="scripts/datepicker_ngo.js"></script>
 <link rel="stylesheet" href="css/slideshow.css" />
+
+<script src="scripts/datepicker.js"></script>
+		
+	
 <!--<script src="scripts/slides.css.js"></script>-->
 <script src="scripts/jquery.blockUI.js"></script>
 	<script>
 		$(function(){
-			$("#datesearch").datepicker();
+			$( "#from_date" ).datepicker({
+				maxDate: 365,
+      				onSelect: function( selected ) 
+      				{
+        				$("#to_date" ).datepicker( "option", "minDate", selected );
+        				$("#to_date" ).datepicker( "option", "maxDate", selected+365 );
+        				$("#to_date").removeAttr("disabled"); 
+      				}
+    			});
+			$( "#to_date" ).datepicker({
+     				onSelect: function( selected ) 
+     				{
+        				$( "#from_date" ).datepicker( "option", "maxDate", selected );
+        			}
+      			});
+      			
+      			
 			$(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
 		});
 	</script>
@@ -116,15 +136,15 @@ else{ ?>
 </td>
 </tr>
 <tr>
-<td valign="top">
+<td valign="top"  >
 <div class="left_div" style=" float:left" >
 <hr>
-<div id="search_filters">
+<div id="search_filters" style="width: 200px">
 <?php include "dt_filters.php"; ?>
 </div>
 </div>
 </td>
-<td valign="top">
+<td valign="top" >
 <hr>
 <div id="postedComments" >
 <?php include 'volunteering_opportunities.php'; ?>	
