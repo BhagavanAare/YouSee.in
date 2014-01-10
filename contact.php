@@ -8,6 +8,9 @@
   <meta http-equiv="content-type" content="text/ html;charset=utf-8">
   <META NAME="Description" CONTENT="UC is a new initiative to channel investments to Education, Health and Energy&Environmental services sectors, in order to improve access to these services especially for the poor. These sectors need a much larger infusion of capital of various kinds including Financial, Intellectual and Social Capital.">
   <link rel="stylesheet" type="text/css" href="css/main.css">
+  <script type="text/javascript"
+	src="https://maps.googleapis.com/maps/api/js?&sensor=true&region=IN">
+  </script>
   </HEAD>
  <BODY>
  
@@ -28,10 +31,43 @@
 <br>
 <!--<a href="main_login.php">UC Login</a>-->
 <!--<a href="login_health.php">Health Project Login</a>-->
+  <style>
+      #map_canvas {
+        width: 500px;
+        height: 400px;
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script>
+    	
+      function initialize() {
+         var map_canvas = document.getElementById('map_canvas');
+        var map_options = {
+          center: new google.maps.LatLng(17.42595, 78.45398),
+          zoom: 16,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        var map = new google.maps.Map(map_canvas, map_options)
+        var marker = new google.maps.Marker({
+  		position: new google.maps.LatLng(17.42595, 78.45398),
+  		map: map,
+  		
+	});
+        
+	
+        
+        
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+ 
+  
+<div id="map_canvas" style="width: 750px; height: 400px; margin:20px;"></div>
+  
+
 
 <div align="center">
-<img src="http://maps.google.com/maps/api/staticmap?sensor=false&size=512x512&center=Prashanth+nagar,Boduppal+Road,Uppal,Hyderabad,Andhra+Pradesh,India&maptype=roadmap&markers=color:blue"/>
-</div>
+	</div>
 
 </div>
 <!--#maincontentarea-->
